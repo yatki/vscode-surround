@@ -1,39 +1,154 @@
 {
-    "name": "vscode-surround",
-    "displayName": "vscode-surround",
-    "description": "vscode-surround",
-    "version": "0.0.1",
-    "publisher": "yatki",
-    "engines": {
-        "vscode": "^1.23.0"
-    },
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-        "onCommand:extension.sayHello"
-    ],
-    "main": "./out/extension",
-    "contributes": {
-        "commands": [
+  "name": "vscode-surround",
+  "displayName": "Surround With",
+  "description": "Surround your code blocks with predefined templates",
+  "version": "0.0.1",
+  "publisher": "yatki",
+  "licence": "LICENCE",
+  "engines": {
+    "vscode": "^1.23.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onCommand:surround.with"],
+  "main": "./out/extension",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Surround With",
+      "properties": {
+        "surround.snippets": {
+          "type": "object[]",
+          "default": [
             {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+              "label": "if",
+              "description": "if ($condition) { ... }",
+              "snippet": "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            },
+            {
+              "label": "if/else",
+              "description": "if ($condition) { ... } else { $else }",
+              "snippet":
+                "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n} else {\n\t${2:else}$0"
+            },
+            {
+              "label": "try/catch",
+              "description": "try { ... } catch(err) { $catchBlock }",
+              "snippet":
+                "try {\n\t$TM_SELECTED_TEXT\n} catch(err) {\n\t${1:catchBlock}\n}$0"
+            },
+            {
+              "label": "try/finaly",
+              "description": "try { ... } finally { $finalBlock }",
+              "snippet":
+                "try {\n\t$TM_SELECTED_TEXT\n} finally {\n\t${1:finalBlock}\n}$0"
+            },
+            {
+              "label": "try/catch/finally",
+              "description":
+                "try { ... } catch(err) {$catchBlock} finally { $finalBlock }",
+              "snippet":
+                "try {\n\t$TM_SELECTED_TEXT\n} catch(err) {\n\t${1:catchBlock}\n} finally {\n\t${2:finalBlock}\n}$0"
+            },
+            {
+              "label": "for",
+              "description": "for ($1; $2 ; $3)",
+              "snippet": "for (${1}; ${2}; ${3}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            },
+            {
+              "label": "fori",
+              "description": "for (let i = 0; ... ; i = i + 1) { ... }",
+              "snippet":
+                "for (let ${1:i} = ${2:0}; ${3:conditions}; $1 = $1 + 1) {\n\t$TM_SELECTED_TEXT\n}$0"
+            },
+            {
+              "label": "forEach",
+              "description": "items.forEach((item) => { ... })",
+              "snippet":
+                "${1:items}.forEach((${2:item}) => {\n\t$TM_SELECTED_TEXT\n})$0"
+            },
+            {
+              "label": "forEachAsync",
+              "description": "items.forEach(async (item) => { ... })",
+              "snippet":
+                "${1:items}.forEach(async (${2:item}) => {\n\t$TM_SELECTED_TEXT\n})$0"
+            },
+            {
+              "label": "forEachFn",
+              "description": "items.forEach(function (item) { ... })",
+              "snippet":
+                "${1:items}.forEach(function (${2:item}) {\n\t$TM_SELECTED_TEXT\n})$0"
+            },
+            {
+              "label": "forEachAsyncFn",
+              "description": "items.forEach(async function (item) { ... })",
+              "snippet":
+                "${1:items}.forEach(async function (${2:item}) {\n\t$TM_SELECTED_TEXT\n})$0"
+            },
+            {
+              "label": "arrowFunction",
+              "description": "const $name = ($params) => { ... }",
+              "snippet":
+                "const ${1:fnName} = (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}$0"
+            },
+            {
+              "label": "asyncArrowFunction",
+              "description": "const $name = async ($params) => { ... }",
+              "snippet":
+                "const ${1:fnName} = async (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}$0"
+            },
+            {
+              "label": "functionDeclaration",
+              "description": "function $name ($params) { ... }",
+              "snippet":
+                "function ${1:name} (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            },
+            {
+              "label": "asyncFunctionDeclaration",
+              "description": "async function $name ($params) { ... }",
+              "snippet":
+                "async function ${1:name} (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            },
+            {
+              "label": "functionExpression",
+              "description": "const $name = function ($params) { ... }",
+              "snippet":
+                "const ${1:name} = function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            },
+            {
+              "label": "asyncFunctionExpression",
+              "description": "const $name = async function ($params) { ... }",
+              "snippet":
+                "const ${1:name} = async function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            },
+            {
+              "label": "#region",
+              "snippet":
+                "# region ${1:regionName}\n$TM_SELECTED_TEXT\n# endregion$0"
             }
-        ]
+          ],
+          "description": "Surround with snippets"
+        }
+      }
     },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "tslint": "^5.8.0",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
-    }
+    "commands": [
+      {
+        "command": "surround.with",
+        "title": "Surround With"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.6",
+    "tslint": "^5.8.0",
+    "@types/node": "^7.0.43",
+    "@types/mocha": "^2.2.42"
+  }
 }
