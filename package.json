@@ -9,124 +9,202 @@
     "vscode": "^1.23.0"
   },
   "categories": ["Other"],
-  "activationEvents": ["onCommand:surround.with"],
-  "main": "./out/extension",
+  "activationEvents": ["*"],
+  "main": "./out/surround",
   "contributes": {
     "configuration": {
       "type": "object",
       "title": "Surround With",
       "properties": {
-        "surround.snippets": {
-          "type": "object[]",
-          "default": [
-            {
-              "label": "if",
-              "description": "if ($condition) { ... }",
-              "snippet": "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n}$0"
-            },
-            {
-              "label": "if/else",
-              "description": "if ($condition) { ... } else { $else }",
-              "snippet":
-                "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n} else {\n\t${2:else}$0"
-            },
-            {
-              "label": "try/catch",
-              "description": "try { ... } catch(err) { $catchBlock }",
-              "snippet":
-                "try {\n\t$TM_SELECTED_TEXT\n} catch(err) {\n\t${1:catchBlock}\n}$0"
-            },
-            {
-              "label": "try/finaly",
-              "description": "try { ... } finally { $finalBlock }",
-              "snippet":
-                "try {\n\t$TM_SELECTED_TEXT\n} finally {\n\t${1:finalBlock}\n}$0"
-            },
-            {
-              "label": "try/catch/finally",
-              "description":
-                "try { ... } catch(err) {$catchBlock} finally { $finalBlock }",
-              "snippet":
-                "try {\n\t$TM_SELECTED_TEXT\n} catch(err) {\n\t${1:catchBlock}\n} finally {\n\t${2:finalBlock}\n}$0"
-            },
-            {
-              "label": "for",
-              "description": "for ($1; $2 ; $3)",
-              "snippet": "for (${1}; ${2}; ${3}) {\n\t$TM_SELECTED_TEXT\n}$0"
-            },
-            {
-              "label": "fori",
-              "description": "for (let i = 0; ... ; i = i + 1) { ... }",
-              "snippet":
-                "for (let ${1:i} = ${2:0}; ${3:conditions}; $1 = $1 + 1) {\n\t$TM_SELECTED_TEXT\n}$0"
-            },
-            {
-              "label": "forEach",
-              "description": "items.forEach((item) => { ... })",
-              "snippet":
-                "${1:items}.forEach((${2:item}) => {\n\t$TM_SELECTED_TEXT\n})$0"
-            },
-            {
-              "label": "forEachAsync",
-              "description": "items.forEach(async (item) => { ... })",
-              "snippet":
-                "${1:items}.forEach(async (${2:item}) => {\n\t$TM_SELECTED_TEXT\n})$0"
-            },
-            {
-              "label": "forEachFn",
-              "description": "items.forEach(function (item) { ... })",
-              "snippet":
-                "${1:items}.forEach(function (${2:item}) {\n\t$TM_SELECTED_TEXT\n})$0"
-            },
-            {
-              "label": "forEachAsyncFn",
-              "description": "items.forEach(async function (item) { ... })",
-              "snippet":
-                "${1:items}.forEach(async function (${2:item}) {\n\t$TM_SELECTED_TEXT\n})$0"
-            },
-            {
-              "label": "arrowFunction",
-              "description": "const $name = ($params) => { ... }",
-              "snippet":
-                "const ${1:fnName} = (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}$0"
-            },
-            {
-              "label": "asyncArrowFunction",
-              "description": "const $name = async ($params) => { ... }",
-              "snippet":
-                "const ${1:fnName} = async (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}$0"
-            },
-            {
-              "label": "functionDeclaration",
-              "description": "function $name ($params) { ... }",
-              "snippet":
-                "function ${1:name} (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
-            },
-            {
-              "label": "asyncFunctionDeclaration",
-              "description": "async function $name ($params) { ... }",
-              "snippet":
-                "async function ${1:name} (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
-            },
-            {
-              "label": "functionExpression",
-              "description": "const $name = function ($params) { ... }",
-              "snippet":
-                "const ${1:name} = function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
-            },
-            {
-              "label": "asyncFunctionExpression",
-              "description": "const $name = async function ($params) { ... }",
-              "snippet":
-                "const ${1:name} = async function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
-            },
-            {
-              "label": "#region",
-              "snippet":
-                "# region ${1:regionName}\n$TM_SELECTED_TEXT\n# endregion$0"
-            }
-          ],
-          "description": "Surround with snippets"
+        "surround.custom": {
+          "type": "object",
+          "default": {}
+        },
+        "surround.with.if": {
+          "type": "object",
+          "default": {
+            "label": "if",
+            "description": "if ($condition) { ... }",
+            "disabled": false,
+            "snippet": "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n}$0"
+          }
+        },
+        "surround.with.ifElse": {
+          "type": "object",
+          "default": {
+            "label": "if/else",
+            "description": "if ($condition) { ... } else { $else }",
+            "disabled": false,
+            "snippet":
+              "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n} else {\n\t${2:else}\n}$0"
+          }
+        },
+        "surround.with.tryCatch": {
+          "type": "object",
+          "default": {
+            "label": "try/catch",
+            "description": "try { ... } catch(err) { $catchBlock }",
+            "disabled": false,
+            "snippet":
+              "try {\n\t$TM_SELECTED_TEXT\n} catch(err) {\n\t${1:catchBlock}\n}$0"
+          }
+        },
+        "surround.with.tryFinally": {
+          "type": "object",
+          "default": {
+            "label": "try/finaly",
+            "description": "try { ... } finally { $finalBlock }",
+            "disabled": false,
+            "snippet":
+              "try {\n\t$TM_SELECTED_TEXT\n} finally {\n\t${1:finalBlock}\n}$0"
+          }
+        },
+        "surround.with.tryCatchFinally": {
+          "type": "object",
+          "default": {
+            "label": "try/catch/finally",
+            "description":
+              "try { ... } catch(err) {$catchBlock} finally { $finalBlock }",
+            "disabled": false,
+            "snippet":
+              "try {\n\t$TM_SELECTED_TEXT\n} catch(err) {\n\t${1:catchBlock}\n} finally {\n\t${2:finalBlock}\n}$0"
+          }
+        },
+        "surround.with.for": {
+          "type": "object",
+          "default": {
+            "label": "for",
+            "description": "for ($1; $2 ; $3)",
+            "disabled": false,
+            "snippet": "for (${1}; ${2}; ${3}) {\n\t$TM_SELECTED_TEXT\n}$0"
+          }
+        },
+        "surround.with.fori": {
+          "type": "object",
+          "default": {
+            "label": "fori",
+            "description": "for (let i = 0; ... ; i = i + 1) { ... }",
+            "disabled": false,
+            "snippet":
+              "for (let ${1:i} = ${2:0}; ${3:conditions}; $1 = $1 + 1) {\n\t$TM_SELECTED_TEXT\n}$0"
+          }
+        },
+        "surround.with.forEach": {
+          "type": "object",
+          "default": {
+            "label": "forEach",
+            "description": "items.forEach((item) => { ... })",
+            "disabled": false,
+            "snippet":
+              "${1:items}.forEach((${2:item}) => {\n\t$TM_SELECTED_TEXT\n})$0"
+          }
+        },
+        "surround.with.forEachAsync": {
+          "type": "object",
+          "default": {
+            "label": "forEachAsync",
+            "description": "items.forEach(async (item) => { ... })",
+            "disabled": false,
+            "snippet":
+              "${1:items}.forEach(async (${2:item}) => {\n\t$TM_SELECTED_TEXT\n})$0"
+          }
+        },
+        "surround.with.forEachFn": {
+          "type": "object",
+          "default": {
+            "label": "forEachFn",
+            "description": "items.forEach(function (item) { ... })",
+            "disabled": false,
+            "snippet":
+              "${1:items}.forEach(function (${2:item}) {\n\t$TM_SELECTED_TEXT\n})$0"
+          }
+        },
+        "surround.with.forEachAsyncFn": {
+          "type": "object",
+          "default": {
+            "label": "forEachAsyncFn",
+            "description": "items.forEach(async function (item) { ... })",
+            "disabled": false,
+            "snippet":
+              "${1:items}.forEach(async function (${2:item}) {\n\t$TM_SELECTED_TEXT\n})$0"
+          }
+        },
+        "surround.with.arrowFunction": {
+          "type": "object",
+          "default": {
+            "label": "arrowFunction",
+            "description": "const $name = ($params) => { ... }",
+            "disabled": false,
+            "snippet":
+              "const ${1:fnName} = (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}$0"
+          }
+        },
+        "surround.with.asyncArrowFunction": {
+          "type": "object",
+          "default": {
+            "label": "asyncArrowFunction",
+            "description": "const $name = async ($params) => { ... }",
+            "disabled": false,
+            "snippet":
+              "const ${1:fnName} = async (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}$0"
+          }
+        },
+        "surround.with.functionDeclaration": {
+          "type": "object",
+          "default": {
+            "label": "functionDeclaration",
+            "description": "function $name ($params) { ... }",
+            "disabled": false,
+            "snippet":
+              "function ${1:name} (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+          }
+        },
+        "surround.with.asyncFunctionDeclaration": {
+          "type": "object",
+          "default": {
+            "label": "asyncFunctionDeclaration",
+            "description": "async function $name ($params) { ... }",
+            "disabled": false,
+            "snippet":
+              "async function ${1:name} (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+          }
+        },
+        "surround.with.functionExpression": {
+          "type": "object",
+          "default": {
+            "label": "functionExpression",
+            "description": "const $name = function ($params) { ... }",
+            "disabled": false,
+            "snippet":
+              "const ${1:name} = function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+          }
+        },
+        "surround.with.asyncFunctionExpression": {
+          "type": "object",
+          "default": {
+            "label": "asyncFunctionExpression",
+            "description": "const $name = async function ($params) { ... }",
+            "disabled": false,
+            "snippet":
+              "const ${1:name} = async function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+          }
+        },
+        "surround.with.element": {
+          "type": "object",
+          "default": {
+            "label": "<element></element>",
+            "disabled": false,
+            "snippet": "<${1:element}$0>$TM_SELECTED_TEXT</$1>"
+          }
+        },
+        "surround.with.region": {
+          "type": "object",
+          "default": {
+            "label": "#region",
+            "disabled": false,
+            "snippet":
+              "# region ${1:regionName}\n$TM_SELECTED_TEXT\n# endregion$0"
+          }
         }
       }
     },
@@ -134,6 +212,14 @@
       {
         "command": "surround.with",
         "title": "Surround With"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "surround.with",
+        "key": "ctrl+shift+T",
+        "mac": "cmd+shift+T",
+        "when": "editorHasSelection"
       }
     ]
   },

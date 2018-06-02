@@ -6,6 +6,7 @@
     "lib": ["es6"],
     "sourceMap": true,
     "rootDir": "src",
+    "strict": true,
     /* Additional Checks */
     "noUnusedLocals": true /* Report errors on unused locals. */
     // "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
