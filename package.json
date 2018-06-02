@@ -5,6 +5,15 @@
   "version": "0.0.1",
   "publisher": "yatki",
   "licence": "LICENCE",
+  "bugs": {
+    "url": "https://github.com/yatki/vscode-surround/issues",
+    "email": "mehmet@yatki.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yatki/vscode-surround.git"
+  },
+  "homepage": "https://github.com/yatki/vscode-surround/blob/master/README.md",
   "engines": {
     "vscode": "^1.23.0"
   },
@@ -43,10 +52,10 @@
           "type": "object",
           "default": {
             "label": "try/catch",
-            "description": "try { ... } catch(err) { $catchBlock }",
+            "description": "try { ... } catch (err) { $catchBlock }",
             "disabled": false,
             "snippet":
-              "try {\n\t$TM_SELECTED_TEXT\n} catch(err) {\n\t${1:catchBlock}\n}$0"
+              "try {\n\t$TM_SELECTED_TEXT\n} catch (err) {\n\t${1:catchBlock}\n}$0"
           }
         },
         "surround.with.tryFinally": {
@@ -64,10 +73,10 @@
           "default": {
             "label": "try/catch/finally",
             "description":
-              "try { ... } catch(err) {$catchBlock} finally { $finalBlock }",
+              "try { ... } catch (err) {$catchBlock} finally { $finalBlock }",
             "disabled": false,
             "snippet":
-              "try {\n\t$TM_SELECTED_TEXT\n} catch(err) {\n\t${1:catchBlock}\n} finally {\n\t${2:finalBlock}\n}$0"
+              "try {\n\t$TM_SELECTED_TEXT\n} catch (err) {\n\t${1:catchBlock}\n} finally {\n\t${2:finalBlock}\n}$0"
           }
         },
         "surround.with.for": {
@@ -212,6 +221,101 @@
       {
         "command": "surround.with",
         "title": "Surround With"
+      },
+      {
+        "command": "surround.with.if",
+        "title": "if",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.ifElse",
+        "title": "if/else",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.tryCatch",
+        "title": "try/catch",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.tryFinally",
+        "title": "try/finaly",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.tryCatchFinally",
+        "title": "try/catch/finally",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.for",
+        "title": "for",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.fori",
+        "title": "fori",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.forEach",
+        "title": "forEach",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.forEachAsync",
+        "title": "forEachAsync",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.forEachFn",
+        "title": "forEachFn",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.forEachAsyncFn",
+        "title": "forEachAsyncFn",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.arrowFunction",
+        "title": "arrowFunction",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.asyncArrowFunction",
+        "title": "asyncArrowFunction",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.functionDeclaration",
+        "title": "functionDeclaration",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.asyncFunctionDeclaration",
+        "title": "asyncFunctionDeclaration",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.functionExpression",
+        "title": "functionExpression",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.asyncFunctionExpression",
+        "title": "asyncFunctionExpression",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.element",
+        "title": "<element></element>",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.region",
+        "title": "#region",
+        "category": "Surround With"
       }
     ],
     "keybindings": [

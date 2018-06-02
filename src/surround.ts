@@ -31,6 +31,7 @@ function getSurroundConfig(): ISurroundConfig {
 
 function getEnabledSurroundItems() {
   const items: ISurroundItem[] = [];
+  const commands: any[] = [];
   const surroundConfig = getSurroundConfig();
   console.log("surroundConfig", surroundConfig);
   Object.keys(surroundConfig).forEach(surroundItemKey => {
@@ -38,7 +39,13 @@ function getEnabledSurroundItems() {
     if (!surroundItem.disabled) {
       items.push(surroundItem);
     }
+    commands.push({
+      command: `surround.with.${surroundItemKey}`,
+      title: surroundItem.label,
+      category: "Surround With"
+    });
   });
+  console.log("commands", JSON.stringify(commands));
   return items;
 }
 

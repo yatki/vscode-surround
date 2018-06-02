@@ -1,10 +1,12 @@
 # VSCode Surround
 
-A powerful yet simple plugin to add wrapper snippets
+A simple yet powerful extension to add wrapper templates around your code blocks
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+* Supports Multi Selections
+* Fully Customizable
+* Custom wrapper functions
 
 For example if there is an image subfolder under your extension project workspace:
 
