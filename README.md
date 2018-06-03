@@ -79,7 +79,7 @@ Example:
 
 Example:
 
-```json
+```js
 {
   "surround.custom": {
     // identifier must be unique

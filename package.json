@@ -2,7 +2,7 @@
   "name": "vscode-surround",
   "displayName": "Surround With",
   "description": "Surround your code blocks with predefined templates",
-  "version": "0.0.1",
+  "version": "0.94.1",
   "publisher": "yatki",
   "licence": "LICENCE",
   "bugs": {
