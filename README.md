@@ -12,11 +12,11 @@ A simple yet powerful extension to add wrapper templates around your code blocks
 
 ### Demo 1: Choosing wrapper function from quick pick
 
-![Demo 1](images/demo.gif)
+![Demo 1](https://raw.githubusercontent.com/yatki/vscode-surround/master/images/demo.gif)
 
 ### Demo 2: Wrapping multi selections
 
-![Demo 2](images/demo2.gif)
+![Demo 2](https://raw.githubusercontent.com/yatki/vscode-surround/master/images/demo2.gif)
 
 ## How to use
 
