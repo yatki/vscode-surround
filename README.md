@@ -97,6 +97,7 @@ Example:
 
 1.  Label must be unique
 1.  You can redefine all snippets as long as you provide a valid `SnippetString`. [Read More](https://code.visualstudio.com/docs/extensionAPI/vscode-api#SnippetString)
+1.  Each custom function will have it's own command `surround.with.customCommandName`, so you can assign a shortcut to your most used wrapper functions.
 1.  If you do not provide a **unique** `identifier` or `label` your custom functions will override existing ones.
 
 ## Known Issues
