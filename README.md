@@ -4,64 +4,114 @@ A simple yet powerful extension to add wrapper templates around your code blocks
 
 ## Features
 
-* Supports Multi Selections
-* Fully Customizable
-* Custom wrapper functions
+* Supports **multi** selections
+* Fully **customizable**
+* **Custom** wrapper functions
+* You can assign **shortcuts** for _each_ wrapper function separately
+* Nicely formated
 
-For example if there is an image subfolder under your extension project workspace:
+### Demo
 
-\!\[feature X\]\(images/feature-x.png\)
+![Example](images/example.gif)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## How to use
 
-## Requirements
+You can press (`ctrl` + `shift` + `T`) or (`cmd` + `shift` + `T`) to get list of commands and pick one of them.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+Each wrapper has a **separate command** so you can define keybindings for each wrapper by searching `surround.with.commandName`
 
-## Extension Settings
+### Lıst of commands
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+| Command                                  | Snippet                                                       |
+| ---------------------------------------- | ------------------------------------------------------------- |
+| `surround.with` (`ctrl` + `shift` + `T`) | List of all the enabled commands below                        |
+| `surround.with.if`                       | if ($condition) { ... }                                       |
+| `surround.with.ifElse`                   | if ($condition) { ... } else { $else }                        |
+| `surround.with.tryCatch`                 | try { ... } catch (err) { $catchBlock }                       |
+| `surround.with.tryFinally`               | try { ... } finally { $finalBlock }                           |
+| `surround.with.tryCatchFinally`          | try { ... } catch (err) {$catchBlock} finally { $finalBlock } |
+| `surround.with.for`                      | for ($1; $2 ; $3)                                             |
+| `surround.with.fori`                     | for (let i = 0; ... ; i = i + 1) { ... }                      |
+| `surround.with.forEach`                  | items.forEach((item) => { ... })                              |
+| `surround.with.forEachAsync`             | items.forEach(async (item) => { ... })                        |
+| `surround.with.forEachFn`                | items.forEach(function (item) { ... })                        |
+| `surround.with.forEachAsyncFn`           | items.forEach(async function (item) { ... })                  |
+| `surround.with.arrowFunction`            | const $name = ($params) => { ... }                            |
+| `surround.with.asyncArrowFunction`       | const $name = async ($params) => { ... }                      |
+| `surround.with.functionDeclaration`      | function $name ($params) { ... }                              |
+| `surround.with.asyncFunctionDeclaration` | async function $name ($params) { ... }                        |
+| `surround.with.functionExpression`       | const $name = function ($params) { ... }                      |
+| `surround.with.asyncFunctionExpression`  | const $name = async function ($params) { ... }                |
+| `surround.with.element`                  | \<element\>...\</element\>                                    |
+| `surround.with.region`                   | # region $regionName ... # endregion                          |
 
-For example:
+## Options
 
-This extension contributes the following settings:
+Each wrapper function config is defined as `ISurroundItem`:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+```ts
+interface ISurroundItem {
+  label: string; // must be unique
+  description?: string;
+  detail?: string;
+  snippet: string; // must be valid SnippetString
+  disabled?: boolean; // default: false
+}
+```
+
+Example:
+
+```json
+{
+  "label": "if",
+  "description": "if ($condition) { ... }",
+  "disabled": false,
+  "snippet": "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n}$0"
+}
+```
+
+### How to define custom wrapper functions `surround.custom`
+
+Example:
+
+```json
+{
+  "surround.custom": {
+    // identifier must be unique
+    "myUniqureIdentifier": {
+      // label must be unique
+      "label": "myUniqeLabel",
+      "description": "burrito { ... }",
+      "snippet": "burrito { $TM_SELECTED_TEXT }$0"
+    }
+  }
+}
+```
+
+### IMPORTANT NOTES:
+
+1.  Label must be unique
+1.  You can redefine all snippets as long as you provide a valid `SnippetString`. [Read More](https://code.visualstudio.com/docs/extensionAPI/vscode-api#SnippetString)
+1.  If you do not provide a **unique** `identifier` or `label` your custom functions will override existing ones.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Even though all of the wrapper functions were written for `Javascript`, I didn't set a `Language identifier` for the extension, because you can use it for _other_ languages by simply overriding existing snippets.
 
-## Release Notes
+I would happily add built-in support for other languages if there is demand for it.
 
-Users appreciate release notes as you update your extension.
+## Contribution
 
-### 1.0.0
+As always, I'm open to any contribution and would like to hear your feedback.
 
-Initial release of ...
+### Just an important reminder:
 
-### 1.0.1
+If you are planning to contribute to **any** open source project,
+before starting development, please **always open an issue** and **make a proposal first**.
+This will save you from working on features that are eventually going to be rejected for some reason.
 
-Fixed issue #.
+## LICENCE
 
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+MIT (c) 2017 Mehmet Yatkı
 
 **Enjoy!**

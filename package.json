@@ -202,6 +202,7 @@
           "type": "object",
           "default": {
             "label": "<element></element>",
+            "description": "<element>...</element>",
             "disabled": false,
             "snippet": "<${1:element}$0>$TM_SELECTED_TEXT</$1>"
           }
@@ -210,6 +211,7 @@
           "type": "object",
           "default": {
             "label": "#region",
+            "description": "# region $regionName ... # endregion",
             "disabled": false,
             "snippet":
               "# region ${1:regionName}\n$TM_SELECTED_TEXT\n# endregion$0"
