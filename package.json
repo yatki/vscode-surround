@@ -207,6 +207,15 @@
             "snippet": "<${1:element}$0>$TM_SELECTED_TEXT</$1>"
           }
         },
+        "surround.with.comment": {
+          "type": "object",
+          "default": {
+            "label": "comment",
+            "description": "/** ...  */",
+            "disabled": false,
+            "snippet": "/**\n\t$TM_SELECTED_TEXT\n*/$0"
+          }
+        },
         "surround.with.region": {
           "type": "object",
           "default": {
@@ -312,6 +321,11 @@
       {
         "command": "surround.with.element",
         "title": "<element></element>",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.comment",
+        "title": "comment",
         "category": "Surround With"
       },
       {

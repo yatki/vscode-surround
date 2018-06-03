@@ -43,6 +43,7 @@ Each wrapper has a **separate command** so you can define keybindings for each w
 | `surround.with.functionExpression`       | const $name = function ($params) { ... }                      |
 | `surround.with.asyncFunctionExpression`  | const $name = async function ($params) { ... }                |
 | `surround.with.element`                  | \<element\>...\</element\>                                    |
+| `surround.with.comment`                  | /\*\* ... \*/                                                 |
 | `surround.with.region`                   | # region $regionName ... # endregion                          |
 
 ## Options
