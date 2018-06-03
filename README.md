@@ -10,9 +10,13 @@ A simple yet powerful extension to add wrapper templates around your code blocks
 * You can assign **shortcuts** for _each_ wrapper function separately
 * Nicely formated
 
-### Demo
+### Demo 1: Choosing wrapper function from quick pick
 
-![Example](images/example.gif)
+![Demo 1](images/demo.gif)
+
+### Demo 2: Wrapping multi selections
+
+![Demo 2](images/demo2.gif)
 
 ## How to use
 

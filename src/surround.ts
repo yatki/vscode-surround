@@ -32,20 +32,11 @@ function getSurroundConfig(): ISurroundConfig {
 function getEnabledSurroundItems() {
   const items: ISurroundItem[] = [];
   const surroundConfig = getSurroundConfig();
-  console.log("surroundConfig", surroundConfig);
   Object.keys(surroundConfig).forEach(surroundItemKey => {
     const surroundItem: ISurroundItem = surroundConfig[surroundItemKey];
     if (!surroundItem.disabled) {
       items.push(surroundItem);
     }
-
-    console.log(
-      "| `surround.with." +
-        surroundItemKey +
-        "` | " +
-        JSON.stringify(surroundItem.description) +
-        " | "
-    );
   });
   return items;
 }
@@ -103,8 +94,6 @@ function registerCommands(context: ExtensionContext) {
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
-  window.showInformationMessage("activated!");
-
   let quickPickItems: QuickPickItem[];
   let surroundItems: ISurroundItem[] = [];
 
@@ -115,7 +104,6 @@ export function activate(context: ExtensionContext) {
   }
 
   workspace.onDidChangeConfiguration(() => {
-    window.showInformationMessage("updated!");
     update();
   });
 
