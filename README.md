@@ -3,7 +3,7 @@
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/yatki.vscode-surround.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=yatki.vscode-surround)
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/d/yatki.vscode-surround.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=yatki.vscode-surround)
 [![GitHub last commit](https://img.shields.io/github/last-commit/yatki/vscode-surround.svg?style=flat-square)](https://github.com/yatki/vscode-surround)
-[![license](https://img.shields.io/github/license/yatki/vscode-surround.svg?style=flat-square)](https://github.com/yatki/vscode-surround)
+[![License](https://img.shields.io/github/license/yatki/vscode-surround.svg?style=flat-square)](https://github.com/yatki/vscode-surround)
 
 A simple yet powerful extension to add wrapper templates around your code blocks
 

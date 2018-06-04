@@ -2,7 +2,7 @@
   "name": "vscode-surround",
   "displayName": "Surround With",
   "description": "Surround your code blocks with predefined templates",
-  "version": "0.94.1",
+  "version": "0.94.2",
   "publisher": "yatki",
   "licence": "LICENCE",
   "bugs": {
@@ -31,6 +31,30 @@
     "snippet",
     "templates"
   ],
+  "badges": [
+    {
+      "url": "https://img.shields.io/vscode-marketplace/v/yatki.vscode-surround.svg?style=flat-square",
+      "href": "https://marketplace.visualstudio.com/items?itemName=yatki.vscode-surround",
+      "description": "Visual Studio Marketplace"
+    },
+    {
+      "url": "https://img.shields.io/vscode-marketplace/d/yatki.vscode-surround.svg?style=flat-square",
+      "href": "https://marketplace.visualstudio.com/items?itemName=yatki.vscode-surround",
+      "description": "Visual Studio Marketplace"
+    },
+    {
+      "url": "https://img.shields.io/github/last-commit/yatki/vscode-surround.svg?style=flat-square",
+      "href": "https://github.com/yatki/vscode-surround",
+      "description": "GitHub last commit"
+    },
+    {
+      "url": "https://img.shields.io/github/license/yatki/vscode-surround.svg?style=flat-square",
+      "href": "https://github.com/yatki/vscode-surround",
+      "description": "Licence"
+    }
+  ],
+  "markdown": "github",
+  "icon": "images/logo.small.png",
   "activationEvents": [
     "*"
   ],
