@@ -1,16 +1,21 @@
-# VSCode Surround
+# VSCode Surround (Beta)
+
+[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/yatki.vscode-surround.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=yatki.vscode-surround)
+[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/d/yatki.vscode-surround.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=yatki.vscode-surround)
+[![GitHub last commit](https://img.shields.io/github/last-commit/yatki/vscode-surround.svg?style=flat-square)](https://github.com/yatki/vscode-surround)
+[![license](https://img.shields.io/github/license/yatki/vscode-surround.svg?style=flat-square)](https://github.com/yatki/vscode-surround)
 
 A simple yet powerful extension to add wrapper templates around your code blocks
 
 ## Features
 
-* Supports **multi** selections
-* Fully **customizable**
-* **Custom** wrapper functions
-* You can assign **shortcuts** for _each_ wrapper function separately
-* Nicely formated
+- Supports **multi** selections
+- Fully **customizable**
+- **Custom** wrapper functions
+- You can assign **shortcuts** for _each_ wrapper function separately
+- Nicely formated
 
-### Demo 1: Choosing wrapper function from quick pick
+### Demo 1: Choosing wrapper function from quick pick menu
 
 ![Demo 1](https://raw.githubusercontent.com/yatki/vscode-surround/master/images/demo.gif)
 
@@ -18,13 +23,13 @@ A simple yet powerful extension to add wrapper templates around your code blocks
 
 ![Demo 2](https://raw.githubusercontent.com/yatki/vscode-surround/master/images/demo2.gif)
 
-## How to use
+## How To Use
 
 You can press (`ctrl` + `shift` + `T`) or (`cmd` + `shift` + `T`) to get list of commands and pick one of them.
 
 Each wrapper has a **separate command** so you can define keybindings for each wrapper by searching `surround.with.commandName`
 
-### Lıst of commands
+### List of commands
 
 | Command                                  | Snippet                                                       |
 | ---------------------------------------- | ------------------------------------------------------------- |
@@ -48,7 +53,7 @@ Each wrapper has a **separate command** so you can define keybindings for each w
 | `surround.with.asyncFunctionExpression`  | const $name = async function ($params) { ... }                |
 | `surround.with.element`                  | \<element\>...\</element\>                                    |
 | `surround.with.comment`                  | /\*\* ... \*/                                                 |
-| `surround.with.region`                   | # region $regionName ... # endregion                          |
+| `surround.with.region`                   | #region $regionName ... #endregion                            |
 
 ## Options
 
@@ -96,8 +101,8 @@ Example:
 ### IMPORTANT NOTES:
 
 1.  Label must be unique
-1.  You can redefine all snippets as long as you provide a valid `SnippetString`. [Read More](https://code.visualstudio.com/docs/extensionAPI/vscode-api#SnippetString)
-1.  Each custom function will have it's own command `surround.with.customCommandName`, so you can assign a shortcut to your most used wrapper functions.
+1.  You can redefine all snippets as long as you provide a valid [SnippetString](https://code.visualstudio.com/docs/extensionAPI/vscode-api#SnippetString).
+1.  Each custom function will have it's own command `surround.with.customCommandName`, so you can assign shortcuts to your most used wrapper functions.
 1.  If you do not provide a **unique** `identifier` or `label` your custom functions will override existing ones.
 
 ## Known Issues

@@ -13,12 +13,27 @@
     "type": "git",
     "url": "https://github.com/yatki/vscode-surround.git"
   },
-  "homepage": "https://github.com/yatki/vscode-surround/blob/master/README.md",
+  "homepage": "https://github.com/yatki/vscode-surround",
   "engines": {
     "vscode": "^1.23.0"
   },
-  "categories": ["Other"],
-  "activationEvents": ["*"],
+  "categories": [
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "surround",
+    "surround with",
+    "wrap",
+    "selection",
+    "selected",
+    "code blocks",
+    "snippet",
+    "templates"
+  ],
+  "activationEvents": [
+    "*"
+  ],
   "main": "./out/surround",
   "contributes": {
     "configuration": {
@@ -44,8 +59,7 @@
             "label": "if/else",
             "description": "if ($condition) { ... } else { $else }",
             "disabled": false,
-            "snippet":
-              "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n} else {\n\t${2:else}\n}$0"
+            "snippet": "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n} else {\n\t$2\n}$0"
           }
         },
         "surround.with.tryCatch": {
@@ -54,8 +68,7 @@
             "label": "try/catch",
             "description": "try { ... } catch (err) { $catchBlock }",
             "disabled": false,
-            "snippet":
-              "try {\n\t$TM_SELECTED_TEXT\n} catch (err) {\n\t${1:catchBlock}\n}$0"
+            "snippet": "try {\n\t$TM_SELECTED_TEXT\n} catch (err) {\n\t$1\n}$0"
           }
         },
         "surround.with.tryFinally": {
@@ -64,19 +77,16 @@
             "label": "try/finaly",
             "description": "try { ... } finally { $finalBlock }",
             "disabled": false,
-            "snippet":
-              "try {\n\t$TM_SELECTED_TEXT\n} finally {\n\t${1:finalBlock}\n}$0"
+            "snippet": "try {\n\t$TM_SELECTED_TEXT\n} finally {\n\t$1\n}$0"
           }
         },
         "surround.with.tryCatchFinally": {
           "type": "object",
           "default": {
             "label": "try/catch/finally",
-            "description":
-              "try { ... } catch (err) {$catchBlock} finally { $finalBlock }",
+            "description": "try { ... } catch (err) {$catchBlock} finally { $finalBlock }",
             "disabled": false,
-            "snippet":
-              "try {\n\t$TM_SELECTED_TEXT\n} catch (err) {\n\t${1:catchBlock}\n} finally {\n\t${2:finalBlock}\n}$0"
+            "snippet": "try {\n\t$TM_SELECTED_TEXT\n} catch (err) {\n\t$1\n} finally {\n\t$2\n}$0"
           }
         },
         "surround.with.for": {
@@ -94,8 +104,7 @@
             "label": "fori",
             "description": "for (let i = 0; ... ; i = i + 1) { ... }",
             "disabled": false,
-            "snippet":
-              "for (let ${1:i} = ${2:0}; ${3:conditions}; $1 = $1 + 1) {\n\t$TM_SELECTED_TEXT\n}$0"
+            "snippet": "for (let ${1:i} = ${2:0}; ${3:conditions}; $1 = $1 + 1) {\n\t$TM_SELECTED_TEXT\n}$0"
           }
         },
         "surround.with.forEach": {
@@ -104,8 +113,7 @@
             "label": "forEach",
             "description": "items.forEach((item) => { ... })",
             "disabled": false,
-            "snippet":
-              "${1:items}.forEach((${2:item}) => {\n\t$TM_SELECTED_TEXT\n})$0"
+            "snippet": "${1:items}.forEach((${2:item}) => {\n\t$TM_SELECTED_TEXT\n})$0"
           }
         },
         "surround.with.forEachAsync": {
@@ -114,8 +122,7 @@
             "label": "forEachAsync",
             "description": "items.forEach(async (item) => { ... })",
             "disabled": false,
-            "snippet":
-              "${1:items}.forEach(async (${2:item}) => {\n\t$TM_SELECTED_TEXT\n})$0"
+            "snippet": "${1:items}.forEach(async (${2:item}) => {\n\t$TM_SELECTED_TEXT\n})$0"
           }
         },
         "surround.with.forEachFn": {
@@ -124,8 +131,7 @@
             "label": "forEachFn",
             "description": "items.forEach(function (item) { ... })",
             "disabled": false,
-            "snippet":
-              "${1:items}.forEach(function (${2:item}) {\n\t$TM_SELECTED_TEXT\n})$0"
+            "snippet": "${1:items}.forEach(function (${2:item}) {\n\t$TM_SELECTED_TEXT\n})$0"
           }
         },
         "surround.with.forEachAsyncFn": {
@@ -134,8 +140,7 @@
             "label": "forEachAsyncFn",
             "description": "items.forEach(async function (item) { ... })",
             "disabled": false,
-            "snippet":
-              "${1:items}.forEach(async function (${2:item}) {\n\t$TM_SELECTED_TEXT\n})$0"
+            "snippet": "${1:items}.forEach(async function (${2:item}) {\n\t$TM_SELECTED_TEXT\n})$0"
           }
         },
         "surround.with.arrowFunction": {
@@ -144,8 +149,7 @@
             "label": "arrowFunction",
             "description": "const $name = ($params) => { ... }",
             "disabled": false,
-            "snippet":
-              "const ${1:fnName} = (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}$0"
+            "snippet": "const ${1:fnName} = (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}$0"
           }
         },
         "surround.with.asyncArrowFunction": {
@@ -154,8 +158,7 @@
             "label": "asyncArrowFunction",
             "description": "const $name = async ($params) => { ... }",
             "disabled": false,
-            "snippet":
-              "const ${1:fnName} = async (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}$0"
+            "snippet": "const ${1:fnName} = async (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}$0"
           }
         },
         "surround.with.functionDeclaration": {
@@ -164,8 +167,7 @@
             "label": "functionDeclaration",
             "description": "function $name ($params) { ... }",
             "disabled": false,
-            "snippet":
-              "function ${1:name} (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            "snippet": "function ${1:name} (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
           }
         },
         "surround.with.asyncFunctionDeclaration": {
@@ -174,8 +176,7 @@
             "label": "asyncFunctionDeclaration",
             "description": "async function $name ($params) { ... }",
             "disabled": false,
-            "snippet":
-              "async function ${1:name} (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            "snippet": "async function ${1:name} (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
           }
         },
         "surround.with.functionExpression": {
@@ -184,8 +185,7 @@
             "label": "functionExpression",
             "description": "const $name = function ($params) { ... }",
             "disabled": false,
-            "snippet":
-              "const ${1:name} = function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            "snippet": "const ${1:name} = function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
           }
         },
         "surround.with.asyncFunctionExpression": {
@@ -194,8 +194,7 @@
             "label": "asyncFunctionExpression",
             "description": "const $name = async function ($params) { ... }",
             "disabled": false,
-            "snippet":
-              "const ${1:name} = async function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            "snippet": "const ${1:name} = async function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
           }
         },
         "surround.with.element": {
@@ -204,7 +203,7 @@
             "label": "<element></element>",
             "description": "<element>...</element>",
             "disabled": false,
-            "snippet": "<${1:element}$0>$TM_SELECTED_TEXT</$1>"
+            "snippet": "<${1:element}$2>$TM_SELECTED_TEXT</$1>$0"
           }
         },
         "surround.with.comment": {
@@ -220,10 +219,9 @@
           "type": "object",
           "default": {
             "label": "#region",
-            "description": "# region $regionName ... # endregion",
+            "description": "#region $regionName ... #endregion",
             "disabled": false,
-            "snippet":
-              "# region ${1:regionName}\n$TM_SELECTED_TEXT\n# endregion$0"
+            "snippet": "// #region ${1:regionName}\n$TM_SELECTED_TEXT\n// #endregion$0"
           }
         }
       }
