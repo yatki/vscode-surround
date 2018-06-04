@@ -2,7 +2,7 @@
   "name": "vscode-surround",
   "displayName": "Surround With",
   "description": "A simple yet powerful extension to add wrapper templates around your code blocks",
-  "version": "0.94.3",
+  "version": "0.94.4",
   "publisher": "yatki",
   "licence": "LICENCE",
   "bugs": {
@@ -54,7 +54,7 @@
   "icon": "images/logo.png",
   "galleryBanner": {
     "color": "#c2e1ea",
-    "theme": "dark"
+    "theme": "light"
   },
   "activationEvents": [
     "*"
