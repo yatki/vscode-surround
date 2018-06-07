@@ -135,7 +135,7 @@ This will save you from working on features that are eventually going to be reje
 
 ## Logo
 
-I designed the logo on [canva.com](https://canva.com) and inspired one of their free templates.
+I designed the logo on [canva.com](https://canva.com) and inspired by one of their free templates.
 
 ## LICENCE
 
