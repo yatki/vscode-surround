@@ -5,13 +5,13 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/yatki/vscode-surround.svg?style=flat-square)](https://github.com/yatki/vscode-surround)
 [![License](https://img.shields.io/github/license/yatki/vscode-surround.svg?style=flat-square)](https://github.com/yatki/vscode-surround)
 
-<div style="text-align: center">
+<p align="center">
 <br />
 <img src="https://raw.githubusercontent.com/yatki/vscode-surround/master/images/logo.png">
 
 A simple yet powerful extension to add wrapper templates around your code blocks.
 
-</div>
+</p>
 
 ## Features
 
