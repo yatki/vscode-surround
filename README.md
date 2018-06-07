@@ -8,9 +8,9 @@
 <p align="center">
 <br />
 <img src="https://raw.githubusercontent.com/yatki/vscode-surround/master/images/logo.png">
-
+</p>
+<p align="center">
 A simple yet powerful extension to add wrapper templates around your code blocks.
-
 </p>
 
 ## Features
