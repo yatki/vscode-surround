@@ -1,8 +1,8 @@
 {
   "name": "vscode-surround",
-  "displayName": "Surround With",
-  "description": "A simple yet powerful extension to add wrapper templates around your code blocks",
-  "version": "0.94.5",
+  "displayName": "Surround",
+  "description": "A simple yet powerful extension to add wrapper templates around your code blocks.",
+  "version": "1.0.0",
   "publisher": "yatki",
   "licence": "LICENCE",
   "bugs": {
@@ -118,9 +118,9 @@
           "type": "object",
           "default": {
             "label": "for",
-            "description": "for ($1; $2 ; $3)",
+            "description": "for ($1) { ... }",
             "disabled": false,
-            "snippet": "for (${1}; ${2}; ${3}) {\n\t$TM_SELECTED_TEXT\n}$0"
+            "snippet": "for ($1) {\n\t$TM_SELECTED_TEXT\n}$0"
           }
         },
         "surround.with.fori": {

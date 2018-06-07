@@ -1,11 +1,17 @@
-# VSCode Surround (Beta)
+# Surround
 
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/yatki.vscode-surround.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=yatki.vscode-surround)
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/d/yatki.vscode-surround.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=yatki.vscode-surround)
 [![GitHub last commit](https://img.shields.io/github/last-commit/yatki/vscode-surround.svg?style=flat-square)](https://github.com/yatki/vscode-surround)
 [![License](https://img.shields.io/github/license/yatki/vscode-surround.svg?style=flat-square)](https://github.com/yatki/vscode-surround)
 
-A simple yet powerful extension to add wrapper templates around your code blocks
+<div style="text-align: center">
+<br />
+<img src="https://raw.githubusercontent.com/yatki/vscode-surround/master/images/logo.png">
+
+A simple yet powerful extension to add wrapper templates around your code blocks.
+
+</div>
 
 ## Features
 
@@ -39,7 +45,7 @@ Each wrapper has a **separate command** so you can define keybindings for each w
 | `surround.with.tryCatch`                 | try { ... } catch (err) { $catchBlock }                       |
 | `surround.with.tryFinally`               | try { ... } finally { $finalBlock }                           |
 | `surround.with.tryCatchFinally`          | try { ... } catch (err) {$catchBlock} finally { $finalBlock } |
-| `surround.with.for`                      | for ($1; $2 ; $3)                                             |
+| `surround.with.for`                      | for ($1) { ... }                                              |
 | `surround.with.fori`                     | for (let i = 0; ... ; i = i + 1) { ... }                      |
 | `surround.with.forEach`                  | items.forEach((item) => { ... })                              |
 | `surround.with.forEachAsync`             | items.forEach(async (item) => { ... })                        |
@@ -98,6 +104,8 @@ Example:
 }
 ```
 
+Read More about [Creating your own snippets](https://code.visualstudio.com/docs/editor/userdefinedsnippets).
+
 ### IMPORTANT NOTES:
 
 1.  Label must be unique
@@ -120,6 +128,10 @@ As always, I'm open to any contribution and would like to hear your feedback.
 If you are planning to contribute to **any** open source project,
 before starting development, please **always open an issue** and **make a proposal first**.
 This will save you from working on features that are eventually going to be rejected for some reason.
+
+## Logo
+
+I designed the logo on [canva.com](https://canva.com) and inspired one of their free templates.
 
 ## LICENCE
 
