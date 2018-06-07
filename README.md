@@ -31,9 +31,13 @@ A simple yet powerful extension to add wrapper templates around your code blocks
 
 ## How To Use
 
-You can press (`ctrl` + `shift` + `T`) or (`cmd` + `shift` + `T`) to get list of commands and pick one of them.
+After selecting the code block, you can 
+- **right click** on selected code 
+- OR press (`ctrl` + `shift` + `T`) or (`cmd` + `shift` + `T`)
 
-Each wrapper has a **separate command** so you can define keybindings for each wrapper by searching `surround.with.commandName`
+to get list of commands and pick one of them.
+
+Hint: Each wrapper has a **separate command** so you can define keybindings for your favourite wrappers by searching `surround.with.commandName` in the 'Keyboard Shortcuts' section.
 
 ### List of commands
 
