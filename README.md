@@ -34,7 +34,7 @@ A simple yet powerful extension to add wrapper templates around your code blocks
 After selecting the code block, you can
 
 - **right click** on selected code
-- OR press (`ctrl` + `shift` + `T`) or (`cmd` + `shift` + `T`)
+- OR press (ctrl+shift+T) or (cmd+shift+T)
 
 to get list of commands and pick one of them.
 
@@ -44,7 +44,7 @@ Hint: Each wrapper has a **separate command** so you can define keybindings for 
 
 | Command                                  | Snippet                                                       |
 | ---------------------------------------- | ------------------------------------------------------------- |
-| `surround.with` (`ctrl` + `shift` + `T`) | List of all the enabled commands below                        |
+| `surround.with` (ctrl+shift+T)           | List of all the enabled commands below                        |
 | `surround.with.if`                       | if ($condition) { ... }                                       |
 | `surround.with.ifElse`                   | if ($condition) { ... } else { $else }                        |
 | `surround.with.tryCatch`                 | try { ... } catch (err) { $catchBlock }                       |
