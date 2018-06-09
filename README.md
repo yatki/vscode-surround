@@ -31,8 +31,9 @@ A simple yet powerful extension to add wrapper templates around your code blocks
 
 ## How To Use
 
-After selecting the code block, you can 
-- **right click** on selected code 
+After selecting the code block, you can
+
+- **right click** on selected code
 - OR press (`ctrl` + `shift` + `T`) or (`cmd` + `shift` + `T`)
 
 to get list of commands and pick one of them.
@@ -67,7 +68,7 @@ Hint: Each wrapper has a **separate command** so you can define keybindings for 
 
 ## Options
 
-Each wrapper function config is defined as `ISurroundItem`:
+Each wrapper function config object is defined as `ISurroundItem` like below:
 
 ```ts
 interface ISurroundItem {
@@ -79,7 +80,11 @@ interface ISurroundItem {
 }
 ```
 
-Example:
+### Editing/Disabling existing wrapper functions
+
+Go to "Settings" and search for "surround.with._commandName_".
+
+Example `surround.with.if`:
 
 ```json
 {
@@ -90,32 +95,31 @@ Example:
 }
 ```
 
-### How to define custom wrapper functions `surround.custom`
+### Adding new custom wrapper functions
 
-Example:
+Go to "Settings" and search for `surround.custom` and edit it like below.
 
 ```js
 {
   "surround.custom": {
-    // identifier must be unique
-    "myUniqureIdentifier": {
+    // command name must be unique
+    "yourCommandName": {
       // label must be unique
-      "label": "myUniqeLabel",
-      "description": "burrito { ... }",
-      "snippet": "burrito { $TM_SELECTED_TEXT }$0"
-    }
+      "label": "Your Snippet Label",
+      "description": "Your Snippet Description",
+      "snippet": "burrito { $TM_SELECTED_TEXT }$0" // <-- snippet goes here.
+    },
+    // You can add more ...
   }
 }
 ```
 
-Read More about [Creating your own snippets](https://code.visualstudio.com/docs/editor/userdefinedsnippets).
+After you save the configuration, _Surround_ will create `surround.with.yourCommandName` command for your snippet, so you can assign shortcuts to your most used wrapper functions.
 
 ### IMPORTANT NOTES:
 
-1.  Label must be unique
-1.  You can redefine all snippets as long as you provide a valid [SnippetString](https://code.visualstudio.com/docs/extensionAPI/vscode-api#SnippetString).
-1.  Each custom function will have it's own command `surround.with.customCommandName`, so you can assign shortcuts to your most used wrapper functions.
-1.  If you do not provide a **unique** `identifier` or `label` your custom functions will override existing ones.
+1.  All **command names** and **labels** must be unique. If you do not provide a **unique** command name or label, your custom wrapper functions will override existing ones.
+1.  You can redefine all snippets as long as you provide a valid `SnippetString`. [Read More](https://code.visualstudio.com/docs/extensionAPI/vscode-api#SnippetString)
 
 ## Known Issues
 
