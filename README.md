@@ -66,7 +66,7 @@ Hint: Each wrapper has a **separate command** so you can define keybindings for 
 | `surround.with.comment`                  | /\*\* ... \*/                                                 |
 | `surround.with.region`                   | #region $regionName ... #endregion                            |
 
-## Options
+## Configuration
 
 Each wrapper function config object is defined as `ISurroundItem` like below:
 
