@@ -26,7 +26,7 @@ function getSurroundConfig(): ISurroundConfig {
   let config = workspace.getConfiguration("surround");
   const items = <ISurroundConfig>config.get("with", {});
   const custom = <ISurroundConfig>config.get("custom", {});
-  return Object.assign(items, custom);
+  return { ...items, ...custom };
 }
 
 function getEnabledSurroundItems() {
