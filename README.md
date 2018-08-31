@@ -95,6 +95,8 @@ Example `surround.with.if`:
 }
 ```
 
+Hint: If you want to edit or disable the snippets for only one project and leave them available for others, you can use "Workspace Settings" and disable or add snippets for only one project.
+
 ### Adding new custom wrapper functions
 
 Go to "Settings" and search for `surround.custom` and edit it like below.
@@ -113,6 +115,7 @@ Go to "Settings" and search for `surround.custom` and edit it like below.
   }
 }
 ```
+Hint: If you want to add the snippets for only one project, you can use "Workspace Settings" and disable or add snippets for only one project.
 
 After you save the configuration, _Surround_ will create `surround.with.yourCommandName` command for your snippet, so you can assign shortcuts to your most used wrapper functions.
 
