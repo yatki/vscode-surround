@@ -360,8 +360,8 @@
     "keybindings": [
       {
         "command": "surround.with",
-        "key": "ctrl+shift+T",
-        "mac": "cmd+shift+T",
+        "key": "ctrl+shift+U",
+        "mac": "cmd+shift+U",
         "when": "editorHasSelection"
       }
     ],
