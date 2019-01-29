@@ -65,7 +65,7 @@ Hint: Each wrapper has a **separate command** so you can define keybindings for 
 | `surround.with.element`                            | \<element\>...\</element\>                                           |
 | `surround.with.comment`                            | /\*\* ... \*/                                                        |
 | `surround.with.region`                             | #region \$regionName ... #endregion                                  |
-| `surround.with.multilineVariable`                  | const \$variable = `...`;                                            |
+| `surround.with.multilineVariable`                  | const \$variable = \`...\`;                                          |
 | `surround.with.classMethod`                        | class $name { $method() { ... } }                                    |
 | `surround.with.asyncClassMethod`                   | class $name { async $method() { ... } }                              |
 | `surround.with.arrowFunctionWithModuleExport`      | const $name = ($params) => { ... }; module.exports = { \$name}       |
