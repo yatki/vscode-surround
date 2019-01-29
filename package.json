@@ -248,6 +248,51 @@
             "disabled": false,
             "snippet": "// #region ${1:regionName}\n$TM_SELECTED_TEXT\n// #endregion$0"
           }
+        },
+        "surround.with.multilineVariable": {
+          "type": "object",
+          "default": {
+            "label": "multilineVariable",
+            "description": "const $variable = `...`;",
+            "disabled": false,
+            "snippet": "const ${1:variable} = `$TM_SELECTED_TEXT`;\n$0"
+          }
+        },
+        "surround.with.classMethod": {
+          "type": "object",
+          "default": {
+            "label": "classMethod",
+            "description": "Surround with class and method",
+            "disabled": false,
+            "snippet": "\nclass ${1:name} {\n\t${2:method}($0) {\n\t$TM_SELECTED_TEXT\n\t}\n}\n"
+          }
+        },
+        "surround.with.asyncClassMethod": {
+          "type": "object",
+          "default": {
+            "label": "asyncClassMethod",
+            "description": "Surround with class and async method",
+            "disabled": false,
+            "snippet": "\nclass ${1:name} {\n\t async ${2:method}($0) {\n\t$TM_SELECTED_TEXT\n\t}\n}\n"
+          }
+        },
+        "surround.with.arrowFunctionWithModuleExport": {
+          "type": "object",
+          "default": {
+            "label": "arrowFunctionWithModuleExport",
+            "description": "const $name = ($params) => { ... }; module.exports = { $name };",
+            "disabled": false,
+            "snippet": "const ${1:fnName} = (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}\nmodule.exports = { $1 };\n$0"
+          }
+        },
+        "surround.with.asyncArrowFunctionWithModuleExport": {
+          "type": "object",
+          "default": {
+            "label": "asyncArrowFunctionWithModuleExport",
+            "description": "const $name = async ($params) => { ... }",
+            "disabled": false,
+            "snippet": "const ${1:fnName} = async (${2:params}) => {\n\t$TM_SELECTED_TEXT\n}\nmodule.exports = { $1 };\n$0"
+          }
         }
       }
     },
@@ -259,102 +304,127 @@
       {
         "command": "surround.with.if",
         "title": "if",
-        "category": "Surround With"
+        "category": "JS Conditional"
       },
       {
         "command": "surround.with.ifElse",
         "title": "if/else",
-        "category": "Surround With"
+        "category": "JS Conditional"
       },
       {
         "command": "surround.with.tryCatch",
         "title": "try/catch",
-        "category": "Surround With"
+        "category": "JS Conditional"
       },
       {
         "command": "surround.with.tryFinally",
         "title": "try/finaly",
-        "category": "Surround With"
+        "category": "JS Conditional"
       },
       {
         "command": "surround.with.tryCatchFinally",
         "title": "try/catch/finally",
-        "category": "Surround With"
+        "category": "JS Conditional"
       },
       {
         "command": "surround.with.for",
         "title": "for",
-        "category": "Surround With"
+        "category": "JS Iteration"
       },
       {
         "command": "surround.with.fori",
         "title": "fori",
-        "category": "Surround With"
+        "category": "JS Iteration"
       },
       {
         "command": "surround.with.forEach",
         "title": "forEach",
-        "category": "Surround With"
+        "category": "JS Iteration"
       },
       {
         "command": "surround.with.forEachAsync",
         "title": "forEachAsync",
-        "category": "Surround With"
+        "category": "JS Iteration"
       },
       {
         "command": "surround.with.forEachFn",
         "title": "forEachFn",
-        "category": "Surround With"
+        "category": "JS Iteration"
       },
       {
         "command": "surround.with.forEachAsyncFn",
         "title": "forEachAsyncFn",
-        "category": "Surround With"
+        "category": "JS Iteration"
       },
       {
         "command": "surround.with.arrowFunction",
         "title": "arrowFunction",
-        "category": "Surround With"
+        "category": "JS Function"
       },
       {
         "command": "surround.with.asyncArrowFunction",
         "title": "asyncArrowFunction",
-        "category": "Surround With"
+        "category": "JS Function"
       },
       {
         "command": "surround.with.functionDeclaration",
         "title": "functionDeclaration",
-        "category": "Surround With"
+        "category": "JS Function"
       },
       {
         "command": "surround.with.asyncFunctionDeclaration",
         "title": "asyncFunctionDeclaration",
-        "category": "Surround With"
+        "category": "JS Function"
       },
       {
         "command": "surround.with.functionExpression",
         "title": "functionExpression",
-        "category": "Surround With"
+        "category": "JS Function"
       },
       {
         "command": "surround.with.asyncFunctionExpression",
         "title": "asyncFunctionExpression",
-        "category": "Surround With"
+        "category": "JS Function"
       },
       {
         "command": "surround.with.element",
         "title": "<element></element>",
-        "category": "Surround With"
+        "category": "HTML Element"
       },
       {
         "command": "surround.with.comment",
         "title": "comment",
-        "category": "Surround With"
+        "category": "JS Text"
       },
       {
         "command": "surround.with.region",
         "title": "#region",
-        "category": "Surround With"
+        "category": "JS Text"
+      },
+      {
+        "command": "surround.with.multilineVariable",
+        "title": "multilineVariable",
+        "category": "JS Text"
+      },
+      {
+        "command": "surround.with.classMethod",
+        "title": "classMethod",
+        "category": "JS Function"
+      },
+      {
+        "command": "surround.with.asyncClassMethod",
+        "title": "asyncClassMethod",
+        "category": "JS Function"
+      },
+      {
+        "command": "surround.with.asyncArrowFunctionWithModuleExport",
+        "title": "asyncArrowFunctionWithModuleExport",
+        "category": "JS Function"
+      },
+      {
+        "command": "surround.with.arrowFunctionWithModuleExport",
+        "title": "arrowFunctionWithModuleExport",
+        "category": "JS Function"
       }
     ],
     "keybindings": [
@@ -384,7 +454,7 @@
   },
   "devDependencies": {
     "typescript": "^2.6.1",
-    "vscode": "^1.1.6",
+    "vscode": "^1.1.28",
     "tslint": "^5.8.0",
     "@types/node": "^7.0.43",
     "@types/mocha": "^2.2.42"
