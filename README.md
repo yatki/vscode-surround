@@ -7,7 +7,7 @@
 
 <p align="center">
 <br />
-<img src="images/logo.png">
+<img src="https://raw.githubusercontent.com/yatki/vscode-surround/master/images/logo.png">
 </p>
 <p align="center">
 A simple yet powerful extension to add wrapper templates around your code blocks.
@@ -23,11 +23,11 @@ A simple yet powerful extension to add wrapper templates around your code blocks
 
 ### Demo 1: Choosing wrapper function from quick pick menu
 
-![Demo 1](images/demo.gif)
+![Demo 1](https://raw.githubusercontent.com/yatki/vscode-surround/master/images/demo.gif)
 
 ### Demo 2: Wrapping multi selections
 
-![Demo 2](images/demo2.gif)
+![Demo 2](https://raw.githubusercontent.com/yatki/vscode-surround/master/images/demo2.gif)
 
 ## How To Use
 
@@ -42,34 +42,29 @@ Hint: Each wrapper has a **separate command** so you can define keybindings for 
 
 ### List of commands
 
-| Command                                            | Snippet                                                              |
-| -------------------------------------------------- | -------------------------------------------------------------------- |
-| `surround.with` (ctrl+shift+T)                     | List of all the enabled commands below                               |
-| `surround.with.if`                                 | if (\$condition) { ... }                                             |
-| `surround.with.ifElse`                             | if ($condition) { ... } else { $else }                               |
-| `surround.with.tryCatch`                           | try { ... } catch (err) { \$catchBlock }                             |
-| `surround.with.tryFinally`                         | try { ... } finally { \$finalBlock }                                 |
-| `surround.with.tryCatchFinally`                    | try { ... } catch (err) {$catchBlock} finally { $finalBlock }        |
-| `surround.with.for`                                | for (\$1) { ... }                                                    |
-| `surround.with.fori`                               | for (let i = 0; ... ; i = i + 1) { ... }                             |
-| `surround.with.forEach`                            | items.forEach((item) => { ... })                                     |
-| `surround.with.forEachAsync`                       | items.forEach(async (item) => { ... })                               |
-| `surround.with.forEachFn`                          | items.forEach(function (item) { ... })                               |
-| `surround.with.forEachAsyncFn`                     | items.forEach(async function (item) { ... })                         |
-| `surround.with.arrowFunction`                      | const $name = ($params) => { ... }                                   |
-| `surround.with.asyncArrowFunction`                 | const $name = async ($params) => { ... }                             |
-| `surround.with.functionDeclaration`                | function $name ($params) { ... }                                     |
-| `surround.with.asyncFunctionDeclaration`           | async function $name ($params) { ... }                               |
-| `surround.with.functionExpression`                 | const $name = function ($params) { ... }                             |
-| `surround.with.asyncFunctionExpression`            | const $name = async function ($params) { ... }                       |
-| `surround.with.element`                            | \<element\>...\</element\>                                           |
-| `surround.with.comment`                            | /\*\* ... \*/                                                        |
-| `surround.with.region`                             | #region \$regionName ... #endregion                                  |
-| `surround.with.multilineVariable`                  | const \$variable = \`...\`;                                          |
-| `surround.with.classMethod`                        | class $name { $method() { ... } }                                    |
-| `surround.with.asyncClassMethod`                   | class $name { async $method() { ... } }                              |
-| `surround.with.arrowFunctionWithModuleExport`      | const $name = ($params) => { ... }; module.exports = { \$name}       |
-| `surround.with.asyncArrowFunctionWithModuleExport` | const $name = async ($params) => { ... }; module.exports = { \$name} |
+| Command                                  | Snippet                                                       |
+| ---------------------------------------- | ------------------------------------------------------------- |
+| `surround.with` (ctrl+shift+T)           | List of all the enabled commands below                        |
+| `surround.with.if`                       | if ($condition) { ... }                                       |
+| `surround.with.ifElse`                   | if ($condition) { ... } else { $else }                        |
+| `surround.with.tryCatch`                 | try { ... } catch (err) { $catchBlock }                       |
+| `surround.with.tryFinally`               | try { ... } finally { $finalBlock }                           |
+| `surround.with.tryCatchFinally`          | try { ... } catch (err) {$catchBlock} finally { $finalBlock } |
+| `surround.with.for`                      | for ($1) { ... }                                              |
+| `surround.with.fori`                     | for (let i = 0; ... ; i = i + 1) { ... }                      |
+| `surround.with.forEach`                  | items.forEach((item) => { ... })                              |
+| `surround.with.forEachAsync`             | items.forEach(async (item) => { ... })                        |
+| `surround.with.forEachFn`                | items.forEach(function (item) { ... })                        |
+| `surround.with.forEachAsyncFn`           | items.forEach(async function (item) { ... })                  |
+| `surround.with.arrowFunction`            | const $name = ($params) => { ... }                            |
+| `surround.with.asyncArrowFunction`       | const $name = async ($params) => { ... }                      |
+| `surround.with.functionDeclaration`      | function $name ($params) { ... }                              |
+| `surround.with.asyncFunctionDeclaration` | async function $name ($params) { ... }                        |
+| `surround.with.functionExpression`       | const $name = function ($params) { ... }                      |
+| `surround.with.asyncFunctionExpression`  | const $name = async function ($params) { ... }                |
+| `surround.with.element`                  | \<element\>...\</element\>                                    |
+| `surround.with.comment`                  | /\*\* ... \*/                                                 |
+| `surround.with.region`                   | #region $regionName ... #endregion                            |
 
 ## Configuration
 
@@ -120,7 +115,6 @@ Go to "Settings" and search for `surround.custom` and edit it like below.
   }
 }
 ```
-
 Hint: If you want to add the snippets for only one project, you can use "Workspace Settings" and disable or add snippets for only one project.
 
 After you save the configuration, _Surround_ will create `surround.with.yourCommandName` command for your snippet, so you can assign shortcuts to your most used wrapper functions.
