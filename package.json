@@ -248,6 +248,15 @@
             "disabled": false,
             "snippet": "// #region ${1:regionName}\n$TM_SELECTED_TEXT\n// #endregion$0"
           }
+        },
+        "surround.with.literalVariable": {
+          "type": "object",
+          "default": {
+            "label": "literalVariable",
+            "description": "${...}",
+            "disabled": false,
+            "snippet": "${$TM_SELECTED_TEXT}"
+          }
         }
       }
     },
@@ -354,6 +363,11 @@
       {
         "command": "surround.with.region",
         "title": "#region",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.literalVariable",
+        "title": "literalVariable",
         "category": "Surround With"
       }
     ],
