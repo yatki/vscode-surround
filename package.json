@@ -99,7 +99,7 @@
         "surround.with.tryFinally": {
           "type": "object",
           "default": {
-            "label": "try/finaly",
+            "label": "try/finally",
             "description": "try { ... } finally { $finalBlock }",
             "disabled": false,
             "snippet": "try {\n\t$TM_SELECTED_TEXT\n} finally {\n\t$1\n}$0"
@@ -273,7 +273,7 @@
       },
       {
         "command": "surround.with.tryFinally",
-        "title": "try/finaly",
+        "title": "try/finally",
         "category": "Surround With"
       },
       {
