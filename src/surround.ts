@@ -7,11 +7,12 @@ import {
   commands,
   window,
   QuickPickItem,
-  SnippetString
+  SnippetString,
 } from "vscode";
 
 interface ISurroundItem {
   label: string;
+  language?: string;
   description?: string;
   detail?: string;
   snippet: string;
@@ -20,6 +21,23 @@ interface ISurroundItem {
 
 interface ISurroundConfig {
   [key: string]: ISurroundItem;
+}
+
+function getlanguageId(): string | undefined {
+  let editor = window.activeTextEditor;
+  if (editor === undefined) {
+    return undefined;
+  }
+  return editor.document.languageId;
+}
+
+function filterQuickPickItems(items: ISurroundItem[], languageId: string | undefined) {
+  if (languageId == undefined) {
+    return items;
+  }
+  return items.filter((item) => {
+    return item.language == languageId || item.language == undefined
+  })
 }
 
 function getSurroundConfig(): ISurroundConfig {
@@ -36,20 +54,6 @@ function getEnabledSurroundItems() {
     const surroundItem: ISurroundItem = surroundConfig[surroundItemKey];
     if (!surroundItem.disabled) {
       items.push(surroundItem);
-    }
-  });
-  return items;
-}
-
-function getQuickPickItems(surroundItems: ISurroundItem[]) {
-  const items: QuickPickItem[] = [];
-  surroundItems.forEach(surroundItem => {
-    if (!surroundItem.disabled) {
-      const { label, description } = surroundItem;
-      items.push({
-        label,
-        description
-      });
     }
   });
   return items;
@@ -94,12 +98,10 @@ function registerCommands(context: ExtensionContext) {
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
-  let quickPickItems: QuickPickItem[];
   let surroundItems: ISurroundItem[] = [];
 
   function update() {
     surroundItems = getEnabledSurroundItems();
-    quickPickItems = getQuickPickItems(surroundItems);
     registerCommands(context);
   }
 
@@ -110,7 +112,8 @@ export function activate(context: ExtensionContext) {
   update();
 
   let disposable = commands.registerCommand("surround.with", () => {
-    window.showQuickPick(quickPickItems).then(item => {
+    const currentlanguageItems = filterQuickPickItems(surroundItems, getlanguageId())
+    window.showQuickPick(currentlanguageItems).then(item => {
       if (item) {
         applyQuickPick(item, surroundItems);
       }
@@ -121,4 +124,4 @@ export function activate(context: ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

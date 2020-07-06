@@ -72,6 +72,7 @@
         "surround.with.if": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "if",
             "description": "if ($condition) { ... }",
             "disabled": false,
@@ -81,6 +82,7 @@
         "surround.with.ifElse": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "if/else",
             "description": "if ($condition) { ... } else { $else }",
             "disabled": false,
@@ -90,6 +92,7 @@
         "surround.with.tryCatch": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "try/catch",
             "description": "try { ... } catch (err) { $catchBlock }",
             "disabled": false,
@@ -99,6 +102,7 @@
         "surround.with.tryFinally": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "try/finally",
             "description": "try { ... } finally { $finalBlock }",
             "disabled": false,
@@ -108,6 +112,7 @@
         "surround.with.tryCatchFinally": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "try/catch/finally",
             "description": "try { ... } catch (err) {$catchBlock} finally { $finalBlock }",
             "disabled": false,
@@ -117,6 +122,7 @@
         "surround.with.for": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "for",
             "description": "for ($1) { ... }",
             "disabled": false,
@@ -126,6 +132,7 @@
         "surround.with.fori": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "fori",
             "description": "for (let i = 0; ... ; i = i + 1) { ... }",
             "disabled": false,
@@ -135,6 +142,7 @@
         "surround.with.forEach": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "forEach",
             "description": "items.forEach((item) => { ... })",
             "disabled": false,
@@ -144,6 +152,7 @@
         "surround.with.forEachAsync": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "forEachAsync",
             "description": "items.forEach(async (item) => { ... })",
             "disabled": false,
@@ -153,6 +162,7 @@
         "surround.with.forEachFn": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "forEachFn",
             "description": "items.forEach(function (item) { ... })",
             "disabled": false,
@@ -162,6 +172,7 @@
         "surround.with.forEachAsyncFn": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "forEachAsyncFn",
             "description": "items.forEach(async function (item) { ... })",
             "disabled": false,
@@ -171,6 +182,7 @@
         "surround.with.arrowFunction": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "arrowFunction",
             "description": "const $name = ($params) => { ... }",
             "disabled": false,
@@ -180,6 +192,7 @@
         "surround.with.asyncArrowFunction": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "asyncArrowFunction",
             "description": "const $name = async ($params) => { ... }",
             "disabled": false,
@@ -189,6 +202,7 @@
         "surround.with.functionDeclaration": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "functionDeclaration",
             "description": "function $name ($params) { ... }",
             "disabled": false,
@@ -198,6 +212,7 @@
         "surround.with.asyncFunctionDeclaration": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "asyncFunctionDeclaration",
             "description": "async function $name ($params) { ... }",
             "disabled": false,
@@ -207,6 +222,7 @@
         "surround.with.functionExpression": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "functionExpression",
             "description": "const $name = function ($params) { ... }",
             "disabled": false,
@@ -216,6 +232,7 @@
         "surround.with.asyncFunctionExpression": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "asyncFunctionExpression",
             "description": "const $name = async function ($params) { ... }",
             "disabled": false,
@@ -225,6 +242,7 @@
         "surround.with.element": {
           "type": "object",
           "default": {
+            "language":"javacript",
             "label": "<element></element>",
             "description": "<element>...</element>",
             "disabled": false,
@@ -234,6 +252,7 @@
         "surround.with.comment": {
           "type": "object",
           "default": {
+              "language":"javacript",
             "label": "comment",
             "description": "/** ...  */",
             "disabled": false,
@@ -248,7 +267,18 @@
             "disabled": false,
             "snippet": "// #region ${1:regionName}\n$TM_SELECTED_TEXT\n// #endregion$0"
           }
-        }
+        },
+        "surround.with.format": {
+            "type": "object",
+            "default": {
+               "language":"rust",
+              "label": "format",
+              "description": "format a string",
+              "disabled": false,
+              "snippet": "format!($TM_SELECTED_TEXT)$0"
+            }
+          }
+
       }
     },
     "commands": [
