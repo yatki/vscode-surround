@@ -10,18 +10,20 @@
 <img src="https://raw.githubusercontent.com/yatki/vscode-surround/master/images/logo.png">
 </p>
 <p align="center">
-A simple yet powerful extension to add wrapper templates around your code blocks.
+A simple yet powerful extension to add wrapper snippets around your code blocks.
 </p>
 
 ## Features
 
+- Supports **language identifiers** 🚀**New!**
 - Supports **multi** selections
 - Fully **customizable**
-- **Custom** wrapper functions
-- You can assign **shortcuts** for _each_ wrapper function separately
-- Nicely formated
+- **Custom** wrapper snippets
+- You can assign **shortcuts** for _each_ wrapper snippets separately
+- Nicely formatted
+- Sorts recently used snippets on top 🚀**New!**
 
-### Demo 1: Choosing wrapper function from quick pick menu
+### Demo 1: Choosing a wrapper snippet from quick pick menu
 
 ![Demo 1](https://raw.githubusercontent.com/yatki/vscode-surround/master/images/demo.gif)
 
@@ -40,37 +42,45 @@ to get list of commands and pick one of them.
 
 > Hint
 >
-> Each wrapper has a **separate command** so you can define keybindings for your favourite wrappers by searching `surround.with.commandName` in the 'Keyboard Shortcuts' section.
+> Each wrapper has a **separate command** so you can define keybindings for your favorite wrappers by searching `surround.with.commandName` in the 'Keyboard Shortcuts' section.
 
 ### List of commands
 
-| Command                                  | Snippet                                                       |
-| ---------------------------------------- | ------------------------------------------------------------- |
-| `surround.with` (ctrl+shift+T)           | List of all the enabled commands below                        |
-| `surround.with.if`                       | if ($condition) { ... }                                       |
-| `surround.with.ifElse`                   | if ($condition) { ... } else { $else }                        |
-| `surround.with.tryCatch`                 | try { ... } catch (err) { $catchBlock }                       |
-| `surround.with.tryFinally`               | try { ... } finally { $finalBlock }                           |
-| `surround.with.tryCatchFinally`          | try { ... } catch (err) {$catchBlock} finally { $finalBlock } |
-| `surround.with.for`                      | for ($1) { ... }                                              |
-| `surround.with.fori`                     | for (let i = 0; ... ; i = i + 1) { ... }                      |
-| `surround.with.forEach`                  | items.forEach((item) => { ... })                              |
-| `surround.with.forEachAsync`             | items.forEach(async (item) => { ... })                        |
-| `surround.with.forEachFn`                | items.forEach(function (item) { ... })                        |
-| `surround.with.forEachAsyncFn`           | items.forEach(async function (item) { ... })                  |
-| `surround.with.arrowFunction`            | const $name = ($params) => { ... }                            |
-| `surround.with.asyncArrowFunction`       | const $name = async ($params) => { ... }                      |
-| `surround.with.functionDeclaration`      | function $name ($params) { ... }                              |
-| `surround.with.asyncFunctionDeclaration` | async function $name ($params) { ... }                        |
-| `surround.with.functionExpression`       | const $name = function ($params) { ... }                      |
-| `surround.with.asyncFunctionExpression`  | const $name = async function ($params) { ... }                |
-| `surround.with.element`                  | \<element\>...\</element\>                                    |
-| `surround.with.comment`                  | /\*\* ... \*/                                                 |
-| `surround.with.region`                   | #region $regionName ... #endregion                            |
+| Command                                            | Snippet                                                         |
+| -------------------------------------------------- | --------------------------------------------------------------- |
+| `surround.with` (ctrl+shift+T)                     | List of all the enabled commands below                          |
+| `surround.with.if`                                 | if ($condition) { ... }                                         |
+| `surround.with.ifElse`                             | if ($condition) { ... } else { $else }                          |
+| `surround.with.tryCatch`                           | try { ... } catch (err) { $catchBlock }                         |
+| `surround.with.tryFinally`                         | try { ... } finally { $finalBlock }                             |
+| `surround.with.tryCatchFinally`                    | try { ... } catch (err) {$catchBlock} finally { $finalBlock }   |
+| `surround.with.for`                                | for ($1) { ... }                                                |
+| `surround.with.fori`                               | for (let i = 0; ... ; i = i + 1) { ... }                        |
+| `surround.with.forEach`                            | items.forEach((item) => { ... })                                |
+| `surround.with.forEachAsync`                       | items.forEach(async (item) => { ... })                          |
+| `surround.with.forEachFn`                          | items.forEach(function (item) { ... })                          |
+| `surround.with.forEachAsyncFn`                     | items.forEach(async function (item) { ... })                    |
+| `surround.with.arrowFunction`                      | const $name = ($params) => { ... }                              |
+| `surround.with.asyncArrowFunction`                 | const $name = async ($params) => { ... }                        |
+| `surround.with.functionDeclaration`                | function $name ($params) { ... }                                |
+| `surround.with.asyncFunctionDeclaration`           | async function $name ($params) { ... }                          |
+| `surround.with.functionExpression`                 | const $name = function ($params) { ... }                        |
+| `surround.with.asyncFunctionExpression`            | const $name = async function ($params) { ... }                  |
+| `surround.with.element`                            | \<element\>...\</element\>                                      |
+| `surround.with.comment`                            | /\*\* ... \*/                                                   |
+| `surround.with.region`                             | #region $regionName ... #endregion                              |
+| `surround.with.templateLiteral` 🚀**New!**         | `...` (Also replaces single and double quotes with backtick)    |
+| `surround.with.templateLiteralVariable` 🚀**New!** | `${...}` (Also replaces single and double quotes with backtick) |
+| `surround.with.iife` 🚀**New!**                    | (function $name($params){ ... })($arguments);                   |
+
+## Options
+
+- `showOnlyUserDefinedSnippets` (boolean): Disables default snippets that comes with the extension and shows only used defined snippets.
+- `showRecentlyUsedFirst` (boolean): Recently used snippets will be displayed on top.
 
 ## Configuration
 
-Each wrapper function config object is defined as `ISurroundItem` like below:
+Each wrapper snippet config object is defined as `ISurroundItem` like below:
 
 ```ts
 interface ISurroundItem {
@@ -79,6 +89,7 @@ interface ISurroundItem {
   detail?: string;
   snippet: string; // must be valid SnippetString
   disabled?: boolean; // default: false
+  languageIds?: string[];
 }
 ```
 
@@ -97,10 +108,6 @@ Example `surround.with.if`:
 }
 ```
 
-> Hint 
->
-> If you want to edit or disable the snippets for only one project and leave them available for others, you can use "Workspace Settings" and disable or add snippets for only one project.
-
 ### Adding new custom wrapper functions
 
 Go to "Settings" and search for `surround.custom` and edit it like below.
@@ -114,27 +121,68 @@ Go to "Settings" and search for `surround.custom` and edit it like below.
       "label": "Your Snippet Label",
       "description": "Your Snippet Description",
       "snippet": "burrito { $TM_SELECTED_TEXT }$0" // <-- snippet goes here.
+      "languageIds": ["html", "javascript", "typescript", "markdown"]
     },
     // You can add more ...
   }
 }
 ```
-> Hint
->
-> If you want to add the snippets for only one project, you can use "Workspace Settings" and disable or add snippets for only one project.
 
-After you save the configuration, _Surround_ will create `surround.with.yourCommandName` command for your snippet, so you can assign shortcuts to your most used wrapper functions.
+### Defining language-specific snippets
+
+With version [`1.1.0`](https://github.com/yatki/vscode-surround/releases), you can define snippets based on the document type by using `languageIds` option.
+
+Visit VSCode docs the full list of [language identifiers](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers).
+
+#### 1. Enabling a snippet for ALL languages
+
+If you want to allow a snippet to work for all document types, simply **REMOVE** `languageIds` option.
+
+**OR** set it to `["*"]` as below:
+
+```jsonc
+{
+  "label": "if",
+  "description": "if ($condition) { ... }",
+  "disabled": false,
+  "snippet": "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n}$0",
+  "languageIds": ["*"] // Wildcard allows snippet to work with all languages
+}
+```
+
+#### 2. Enabling a snippet for ONLY specified languages
+
+If you want to allow a snippet to work with `html`, `typescript` and `typescriptreact` documents, you can use the example below.
+
+```jsonc
+{
+  "label": "if",
+  "description": "if ($condition) { ... }",
+  "disabled": false,
+  "snippet": "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n}$0",
+  "languageIds": ["html", "typescript", "typescriptreact"]
+}
+```
+
+#### 3. Disabling a snippet for ONLY specified languages
+
+If you want to allow a snippet to work with **all** document types **EXCEPT** `html`, `typescript` and `typescriptreact` documents,
+you can add `-` (MINUS) sign as a prefix to the language identifiers (_without_ a whitespace).
+
+```jsonc
+{
+  "label": "if",
+  "description": "if ($condition) { ... }",
+  "disabled": false,
+  "snippet": "if(${1:condition}) {\n\t$TM_SELECTED_TEXT\n}$0",
+  "languageIds": ["*", "-html", "-typescript", "-typescriptreact"]
+}
+```
 
 ### IMPORTANT NOTES:
 
 1.  All **command names** and **labels** must be unique. If you do not provide a **unique** command name or label, your custom wrapper functions will override existing ones.
 1.  You can redefine all snippets as long as you provide a valid `SnippetString`. [Read More](https://code.visualstudio.com/docs/extensionAPI/vscode-api#SnippetString)
-
-## Known Issues
-
-Even though all of the wrapper functions were written for `Javascript`, I didn't set a `Language identifier` for the extension, because you can use it for _other_ languages by simply overriding existing snippets.
-
-I would happily add built-in support for other languages if there is demand for it.
 
 ## Contribution
 
@@ -152,6 +200,6 @@ I designed the logo on [canva.com](https://canva.com) and inspired by one of the
 
 ## LICENCE
 
-MIT (c) 2017 Mehmet Yatkı
+MIT (c) 2021 Mehmet Yatkı
 
 **Enjoy!**
