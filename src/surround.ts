@@ -202,8 +202,9 @@ export function activate(context: ExtensionContext) {
   let showRecentlyUsedFirst = true;
   let surroundConfig: ISurroundConfig;
 
-  const previousVersion = "";
-  // context.globalState.get<string>(SURROUND_LAST_VERSION_KEY);
+  const previousVersion = context.globalState.get<string>(
+    SURROUND_LAST_VERSION_KEY
+  );
   const surroundExt = extensions.getExtension("yatki.vscode-surround")!;
   const surroundVersion = surroundExt.packageJSON.version;
 
