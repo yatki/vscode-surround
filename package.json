@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/yatki/vscode-surround",
   "engines": {
-    "vscode": "^1.23.0"
+    "vscode": "^1.55.0"
   },
   "categories": [
     "Snippets",
