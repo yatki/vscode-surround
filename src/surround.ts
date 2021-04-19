@@ -136,16 +136,18 @@ function registerCommands(
 const SURROUND_LAST_VERSION_KEY = "yatki.vscode-surround:last-version";
 const PENDING_FOCUS = "yatki.vscode-surround:pending-focus";
 
-async function showWhatsNew(
+async function showWelcomeOrWhatsNew(
   context: ExtensionContext,
   version: string,
   previousVersion: string | undefined
 ) {
+  // @ts-ignore
+  console.log("previousVersion", previousVersion);
   if (previousVersion !== version) {
     if (window.state.focused) {
       void context.globalState.update(PENDING_FOCUS, undefined);
       void context.globalState.update(SURROUND_LAST_VERSION_KEY, version);
-      void showWhatsNewMessage(version);
+      void showMessage(version, previousVersion);
     } else {
       // Save pending on window getting focus
       await context.globalState.update(PENDING_FOCUS, true);
@@ -160,7 +162,7 @@ async function showWhatsNew(
         if (context.globalState.get(PENDING_FOCUS) === true) {
           void context.globalState.update(PENDING_FOCUS, undefined);
           void context.globalState.update(SURROUND_LAST_VERSION_KEY, version);
-          void showWhatsNewMessage(version);
+          void showMessage(version, previousVersion);
         }
       });
       context.subscriptions.push(disposable);
@@ -168,28 +170,32 @@ async function showWhatsNew(
   }
 }
 
-async function showWhatsNewMessage(version: string) {
-  const actions: MessageItem[] = [
-    { title: "What's New" },
-    { title: "★ Give a star" },
-    { title: "❤ Sponsor" },
-  ];
+async function showMessage(version: string, previousVersion?: string) {
+  const whatsNew = { title: "What's New" };
+  const giveAStar = { title: "★ Give a star" };
+  const sponsor = { title: "❤ Sponsor" };
+  const actions: MessageItem[] = [giveAStar, sponsor];
 
-  const result = await window.showInformationMessage(
-    `Surround has been updated to v${version} — check out what's new!`,
-    ...actions
-  );
+  if (previousVersion) {
+    actions.unshift(whatsNew);
+  }
+
+  const message = previousVersion
+    ? `Surround has been updated to v${version}! — check out what's new!`
+    : "Thanks for using Surround — have a beautiful day! 🖖🏻 Cheers,";
+
+  const result = await window.showInformationMessage(message, ...actions);
 
   if (result !== null) {
-    if (result === actions[0]) {
+    if (result === whatsNew) {
       await env.openExternal(
         Uri.parse("https://github.com/yatki/vscode-surround/releases")
       );
-    } else if (result === actions[1]) {
+    } else if (result === giveAStar) {
       await env.openExternal(
         Uri.parse("https://github.com/yatki/vscode-surround")
       );
-    } else if (result === actions[1]) {
+    } else if (result === sponsor) {
       await env.openExternal(Uri.parse("https://github.com/sponsors/yatki"));
     }
   }
@@ -224,7 +230,7 @@ export function activate(context: ExtensionContext) {
   });
 
   update();
-  void showWhatsNew(context, surroundVersion, previousVersion);
+  void showWelcomeOrWhatsNew(context, surroundVersion, previousVersion);
 
   let disposable = commands.registerCommand("surround.with", async () => {
     let quickPickItems = filterSurroundItems(
