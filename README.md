@@ -156,7 +156,7 @@ If you want to allow a snippet to work for all document types, simply **REMOVE**
 
 #### 2. Enabling a snippet for ONLY specified languages
 
-If you want to allow a snippet to work with `html`, `typescript`, `typescriptreact` documents, you can use the example below.
+If you want to allow a snippet to work with `html`, `typescript` and `typescriptreact` documents, you can use the example below.
 
 ```jsonc
 {
@@ -170,7 +170,7 @@ If you want to allow a snippet to work with `html`, `typescript`, `typescriptrea
 
 #### 3. Disabling a snippet for ONLY specified languages
 
-If you want to allow a snippet to work with all document types **EXCEPT** `html`, `typescript`, `typescriptreact` documents,
+If you want to allow a snippet to work with **all** document types **EXCEPT** `html`, `typescript` and `typescriptreact` documents,
 you can add `-` (MINUS) sign as a prefix to the language identifiers (_without_ a whitespace).
 
 ```jsonc
@@ -204,6 +204,6 @@ I designed the logo on [canva.com](https://canva.com) and inspired by one of the
 
 ## LICENCE
 
-MIT (c) 2017 Mehmet Yatkı
+MIT (c) 2021 Mehmet Yatkı
 
 **Enjoy!**
