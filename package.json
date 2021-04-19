@@ -59,12 +59,22 @@
   "activationEvents": [
     "*"
   ],
-  "main": "./out/surround",
+  "main": "./out/surround.js",
   "contributes": {
     "configuration": {
       "type": "object",
       "title": "Surround With",
       "properties": {
+        "surround.showOnlyUserDefinedSnippets": {
+          "type": "boolean",
+          "markdownDescription": "Disables default snippets that comes with the extension and shows only used defined snippets.",
+          "default": false
+        },
+        "surround.showRecentlyUsedFirst": {
+          "type": "boolean",
+          "markdownDescription": "Recently used snippets will be displayed on top.",
+          "default": true
+        },
         "surround.custom": {
           "type": "object",
           "default": {}
@@ -222,13 +232,29 @@
             "snippet": "const ${1:name} = async function (${2:params}) {\n\t$TM_SELECTED_TEXT\n}$0"
           }
         },
+        "surround.with.iife": {
+          "type": "object",
+          "default": {
+            "label": "IIFE",
+            "description": "(function $name($params){ ... })($arguments);",
+            "disabled": false,
+            "snippet": "(function ${1:name}(${2:params}){\n\t$TM_SELECTED_TEXT\n})(${3:arguments});$0"
+          }
+        },
         "surround.with.element": {
           "type": "object",
           "default": {
             "label": "<element></element>",
             "description": "<element>...</element>",
             "disabled": false,
-            "snippet": "<${1:element}$2>$TM_SELECTED_TEXT</$1>$0"
+            "snippet": "<${1}$2>$TM_SELECTED_TEXT</$1>$0",
+            "languageIds": [
+              "html",
+              "typescriptreact",
+              "javascriptreact",
+              "jsx",
+              "markdown"
+            ]
           }
         },
         "surround.with.comment": {
@@ -247,6 +273,24 @@
             "description": "#region $regionName ... #endregion",
             "disabled": false,
             "snippet": "// #region ${1:regionName}\n$TM_SELECTED_TEXT\n// #endregion$0"
+          }
+        },
+        "surround.with.templateLiteral": {
+          "type": "object",
+          "default": {
+            "label": "Template Literal",
+            "description": "`...` (Also replaces single and double quotes with backtick)",
+            "disabled": false,
+            "snippet": "`${TM_SELECTED_TEXT/['\"](.*?)['\"]/$1/g}`$0"
+          }
+        },
+        "surround.with.templateLiteralVariable": {
+          "type": "object",
+          "default": {
+            "label": "Template Literal Variable",
+            "description": "`${...}` (Also replaces single and double quotes with backtick)",
+            "disabled": false,
+            "snippet": "`$1\\${${TM_SELECTED_TEXT/['\"](.*?)['\"]/$1/g}}$2`$0"
           }
         }
       }
@@ -355,6 +399,21 @@
         "command": "surround.with.region",
         "title": "#region",
         "category": "Surround With"
+      },
+      {
+        "command": "surround.with.iife",
+        "title": "IIFE",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.templateLiteral",
+        "title": "Template Literal",
+        "category": "Surround With"
+      },
+      {
+        "command": "surround.with.templateLiteralVariable",
+        "title": "Template Literal Variable",
+        "category": "Surround With"
       }
     ],
     "keybindings": [
@@ -379,14 +438,15 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/mocha": "^8.0.3",
-    "@types/node": "^14.6.0",
-    "tslint": "^6.1.3",
-    "typescript": "^4.0.2",
-    "vscode": "^1.1.37"
+    "@types/vscode": "^1.55.0",
+    "eslint": "^7.19.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "typescript": "^4.1.3"
   }
 }
