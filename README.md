@@ -15,13 +15,13 @@ A simple yet powerful extension to add wrapper snippets around your code blocks.
 
 ## Features
 
-- (New) Supports **language identifiers**
+- Supports **language identifiers** 🚀**New!**
 - Supports **multi** selections
 - Fully **customizable**
 - **Custom** wrapper snippets
 - You can assign **shortcuts** for _each_ wrapper snippets separately
 - Nicely formatted
-- (New) Sorts recently used snippets on top
+- Sorts recently used snippets on top 🚀**New!**
 
 ### Demo 1: Choosing a wrapper snippet from quick pick menu
 
@@ -46,32 +46,32 @@ to get list of commands and pick one of them.
 
 ### List of commands
 
-| Command                                  | Snippet                                                         |
-| ---------------------------------------- | --------------------------------------------------------------- |
-| `surround.with` (ctrl+shift+T)           | List of all the enabled commands below                          |
-| `surround.with.if`                       | if ($condition) { ... }                                         |
-| `surround.with.ifElse`                   | if ($condition) { ... } else { $else }                          |
-| `surround.with.tryCatch`                 | try { ... } catch (err) { $catchBlock }                         |
-| `surround.with.tryFinally`               | try { ... } finally { $finalBlock }                             |
-| `surround.with.tryCatchFinally`          | try { ... } catch (err) {$catchBlock} finally { $finalBlock }   |
-| `surround.with.for`                      | for ($1) { ... }                                                |
-| `surround.with.fori`                     | for (let i = 0; ... ; i = i + 1) { ... }                        |
-| `surround.with.forEach`                  | items.forEach((item) => { ... })                                |
-| `surround.with.forEachAsync`             | items.forEach(async (item) => { ... })                          |
-| `surround.with.forEachFn`                | items.forEach(function (item) { ... })                          |
-| `surround.with.forEachAsyncFn`           | items.forEach(async function (item) { ... })                    |
-| `surround.with.arrowFunction`            | const $name = ($params) => { ... }                              |
-| `surround.with.asyncArrowFunction`       | const $name = async ($params) => { ... }                        |
-| `surround.with.functionDeclaration`      | function $name ($params) { ... }                                |
-| `surround.with.asyncFunctionDeclaration` | async function $name ($params) { ... }                          |
-| `surround.with.functionExpression`       | const $name = function ($params) { ... }                        |
-| `surround.with.asyncFunctionExpression`  | const $name = async function ($params) { ... }                  |
-| `surround.with.element`                  | \<element\>...\</element\>                                      |
-| `surround.with.comment`                  | /\*\* ... \*/                                                   |
-| `surround.with.region`                   | #region $regionName ... #endregion                              |
-| `surround.with.templateLiteral`          | `...` (Also replaces single and double quotes with backtick)    |
-| `surround.with.templateLiteralVariable`  | `${...}` (Also replaces single and double quotes with backtick) |
-| `surround.with.iife`                     | (function $name($params){ ... })($arguments);                   |
+| Command                                            | Snippet                                                         |
+| -------------------------------------------------- | --------------------------------------------------------------- |
+| `surround.with` (ctrl+shift+T)                     | List of all the enabled commands below                          |
+| `surround.with.if`                                 | if ($condition) { ... }                                         |
+| `surround.with.ifElse`                             | if ($condition) { ... } else { $else }                          |
+| `surround.with.tryCatch`                           | try { ... } catch (err) { $catchBlock }                         |
+| `surround.with.tryFinally`                         | try { ... } finally { $finalBlock }                             |
+| `surround.with.tryCatchFinally`                    | try { ... } catch (err) {$catchBlock} finally { $finalBlock }   |
+| `surround.with.for`                                | for ($1) { ... }                                                |
+| `surround.with.fori`                               | for (let i = 0; ... ; i = i + 1) { ... }                        |
+| `surround.with.forEach`                            | items.forEach((item) => { ... })                                |
+| `surround.with.forEachAsync`                       | items.forEach(async (item) => { ... })                          |
+| `surround.with.forEachFn`                          | items.forEach(function (item) { ... })                          |
+| `surround.with.forEachAsyncFn`                     | items.forEach(async function (item) { ... })                    |
+| `surround.with.arrowFunction`                      | const $name = ($params) => { ... }                              |
+| `surround.with.asyncArrowFunction`                 | const $name = async ($params) => { ... }                        |
+| `surround.with.functionDeclaration`                | function $name ($params) { ... }                                |
+| `surround.with.asyncFunctionDeclaration`           | async function $name ($params) { ... }                          |
+| `surround.with.functionExpression`                 | const $name = function ($params) { ... }                        |
+| `surround.with.asyncFunctionExpression`            | const $name = async function ($params) { ... }                  |
+| `surround.with.element`                            | \<element\>...\</element\>                                      |
+| `surround.with.comment`                            | /\*\* ... \*/                                                   |
+| `surround.with.region`                             | #region $regionName ... #endregion                              |
+| `surround.with.templateLiteral` 🚀**New!**         | `...` (Also replaces single and double quotes with backtick)    |
+| `surround.with.templateLiteralVariable` 🚀**New!** | `${...}` (Also replaces single and double quotes with backtick) |
+| `surround.with.iife` 🚀**New!**                    | (function $name($params){ ... })($arguments);                   |
 
 ## Options
 
