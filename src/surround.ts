@@ -86,7 +86,13 @@ function applyQuickPick(item: QuickPickItem, surroundItems: ISurroundItem[]) {
   if (activeEditor && item) {
     let surroundItem = surroundItems.find((s) => item.label === s.label);
     if (surroundItem) {
-      activeEditor.insertSnippet(new SnippetString(surroundItem.snippet));
+      try {
+        activeEditor.insertSnippet(new SnippetString(surroundItem.snippet));
+      } catch (e) {
+        window.showErrorMessage(
+          "Invalid surround snippet: " + surroundItem.label
+        );
+      }
     }
   }
 }
@@ -120,7 +126,7 @@ function registerCommands(context: ExtensionContext) {
 const SurroundLastVersionKey = "yatki.vscode-surround:last-version";
 const PendingWelcomeOnFocus = "yatki.vscode-surround:pending-focus";
 
-async function showWelcomeOrWhatsNew(
+async function showWhatsNew(
   context: ExtensionContext,
   version: string,
   previousVersion: string | undefined
@@ -183,8 +189,9 @@ export function activate(context: ExtensionContext) {
   let surroundItems: ISurroundItem[] = [];
   let showRecentlyUsedFirst = true;
 
-  const previousVersion = "";
-  // context.globalState.get<string>(SurroundLastVersionKey);
+  const previousVersion = context.globalState.get<string>(
+    SurroundLastVersionKey
+  );
   const surroundExt = extensions.getExtension("yatki.vscode-surround")!;
   const surroundVersion = surroundExt.packageJSON.version;
 
@@ -202,7 +209,7 @@ export function activate(context: ExtensionContext) {
   });
 
   update();
-  showWelcomeOrWhatsNew(context, surroundVersion, previousVersion);
+  void showWhatsNew(context, surroundVersion, previousVersion);
 
   let disposable = commands.registerCommand("surround.with", async () => {
     let quickPickItems = filterSurroundItems(
