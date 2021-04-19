@@ -75,6 +75,11 @@
           "markdownDescription": "Recently used snippets will be displayed on top.",
           "default": true
         },
+        "surround.generateCommands": {
+          "type": "boolean",
+          "markdownDescription": "Generates a command for each snippet.",
+          "default": true
+        },
         "surround.custom": {
           "type": "object",
           "default": {}
@@ -299,121 +304,6 @@
       {
         "command": "surround.with",
         "title": "Surround With"
-      },
-      {
-        "command": "surround.with.if",
-        "title": "if",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.ifElse",
-        "title": "if/else",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.tryCatch",
-        "title": "try/catch",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.tryFinally",
-        "title": "try/finally",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.tryCatchFinally",
-        "title": "try/catch/finally",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.for",
-        "title": "for",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.fori",
-        "title": "fori",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.forEach",
-        "title": "forEach",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.forEachAsync",
-        "title": "forEachAsync",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.forEachFn",
-        "title": "forEachFn",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.forEachAsyncFn",
-        "title": "forEachAsyncFn",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.arrowFunction",
-        "title": "arrowFunction",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.asyncArrowFunction",
-        "title": "asyncArrowFunction",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.functionDeclaration",
-        "title": "functionDeclaration",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.asyncFunctionDeclaration",
-        "title": "asyncFunctionDeclaration",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.functionExpression",
-        "title": "functionExpression",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.asyncFunctionExpression",
-        "title": "asyncFunctionExpression",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.element",
-        "title": "<element></element>",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.comment",
-        "title": "comment",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.region",
-        "title": "#region",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.iife",
-        "title": "IIFE",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.templateLiteral",
-        "title": "Template Literal",
-        "category": "Surround With"
-      },
-      {
-        "command": "surround.with.templateLiteralVariable",
-        "title": "Template Literal Variable",
-        "category": "Surround With"
       }
     ],
     "keybindings": [

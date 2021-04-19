@@ -209,14 +209,17 @@ export function activate(context: ExtensionContext) {
   const surroundVersion = surroundExt.packageJSON.version;
 
   function update() {
+    const config = workspace.getConfiguration("surround");
+    showRecentlyUsedFirst = !!config.get("showRecentlyUsedFirst");
     surroundConfig = getSurroundConfig();
 
-    showRecentlyUsedFirst = !!workspace
-      .getConfiguration("surround")
-      .get("showRecentlyUsedFirst");
     surroundItems = getEnabledSurroundItems(surroundConfig);
 
-    registerCommands(context, surroundConfig);
+    const generateCommands = config.get<boolean>("generateCommands", true);
+
+    if (generateCommands) {
+      registerCommands(context, surroundConfig);
+    }
   }
 
   workspace.onDidChangeConfiguration(() => {
