@@ -11,6 +11,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added support for [language-specific snippets](https://github.com/yatki/vscode-surround#defining-language-specific-snippets).
 - Recently used snippets now will be displayed on top by default (Can be disabled by the `showRecentlyUsedFirst` option).
 - `showOnlyUserDefinedSnippets` option is added. See [Options](https://github.com/yatki/vscode-surround#options).
+- `generateCommands` option is added. See [Options](https://github.com/yatki/vscode-surround#options).
 - 3 new snippets added (`templateLiteral`, `templateLiteralVariable`, `iife`).
 - Added checks for invalid configurations. See: Issue [#63](https://github.com/yatki/vscode-surround/issues/63).
 - Added update notification info message.
