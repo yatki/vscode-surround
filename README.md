@@ -120,7 +120,7 @@ Go to "Settings" and search for `surround.custom` and edit it like below.
       // label must be unique
       "label": "Your Snippet Label",
       "description": "Your Snippet Description",
-      "snippet": "burrito { $TM_SELECTED_TEXT }$0" // <-- snippet goes here.
+      "snippet": "burrito { $TM_SELECTED_TEXT }$0", // <-- snippet goes here.
       "languageIds": ["html", "javascript", "typescript", "markdown"]
     },
     // You can add more ...
