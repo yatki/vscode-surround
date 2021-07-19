@@ -9,6 +9,7 @@ import {
   MessageItem,
   env,
   Uri,
+  Range,
 } from "vscode";
 
 interface ISurroundItem {
@@ -90,13 +91,39 @@ function getEnabledSurroundItems(surroundConfig: ISurroundConfig) {
   return items;
 }
 
+function getSelectionRange(): Range | undefined {
+  let activeEditor = window.activeTextEditor;
+  if (activeEditor && activeEditor.selection) {
+    const startLine = activeEditor.selection.start.line;
+    const endLine = activeEditor.selection.end.line;
+
+    for (let lineNo = startLine; lineNo <= endLine; lineNo++) {
+      const line = activeEditor.document.lineAt(lineNo);
+      if (!line.isEmptyOrWhitespace) {
+        return new Range(
+          lineNo,
+          line.firstNonWhitespaceCharacterIndex,
+          activeEditor.selection.end.line,
+          activeEditor.selection.end.character
+        );
+      }
+    }
+  }
+
+  return undefined;
+}
+
 function applyQuickPick(item: QuickPickItem, surroundItems: ISurroundItem[]) {
   let activeEditor = window.activeTextEditor;
   if (activeEditor && item) {
     let surroundItem = surroundItems.find((s) => item.label === s.label);
     if (surroundItem) {
       try {
-        activeEditor.insertSnippet(new SnippetString(surroundItem.snippet));
+        const range = getSelectionRange();
+        activeEditor.insertSnippet(
+          new SnippetString(surroundItem.snippet),
+          range
+        );
       } catch (e) {
         window.showErrorMessage(
           "Invalid surround snippet: " + surroundItem.label
