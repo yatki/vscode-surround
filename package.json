@@ -443,7 +443,7 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.58.1",
+    "@types/vscode": "^1.55.0",
     "eslint": "^7.31.0",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
