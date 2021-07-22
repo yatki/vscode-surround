@@ -102,7 +102,10 @@ function getSelectionRange(): Range | undefined {
       if (!line.isEmptyOrWhitespace) {
         return new Range(
           lineNo,
-          line.firstNonWhitespaceCharacterIndex,
+          Math.max(
+            line.firstNonWhitespaceCharacterIndex,
+            activeEditor.selection.start.character
+          ),
           activeEditor.selection.end.line,
           activeEditor.selection.end.character
         );
