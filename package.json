@@ -19,6 +19,7 @@
   },
   "categories": [
     "Snippets",
+    "Formatters",
     "Other"
   ],
   "keywords": [
@@ -26,7 +27,8 @@
     "wrap",
     "selection",
     "code blocks",
-    "snippet"
+    "snippet",
+    "format"
   ],
   "badges": [
     {
