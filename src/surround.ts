@@ -81,116 +81,107 @@ function getSurroundConfig(): ISurroundConfig {
   return { ...items, ...custom };
 }
 
-function getEnabledSurroundItems(surroundConfig: ISurroundConfig) {
-  const items: ISurroundItem[] = [];
-  Object.keys(surroundConfig).forEach((surroundItemKey) => {
-    const surroundItem: ISurroundItem = surroundConfig[surroundItemKey];
-    if (!surroundItem.disabled) {
-      items.push(surroundItem);
-    }
-  });
-  return items;
+function getEnabledSurroundItems(surroundConfig: ISurroundConfig) : ISurroundItem[] {
+  return Object.values(surroundConfig).filter((surroundItem: ISurroundItem) => !surroundItem.disabled);
 }
 
 function trimSelection(selection: Selection): Selection | undefined {
   let activeEditor = window.activeTextEditor;
-  if (activeEditor && selection) {
-    const startLine = selection.start.line;
-    const endLine = selection.end.line;
-
-    let startPosition: Position | undefined = undefined;
-    let endPosition: Position | undefined = undefined;
-
-    for (let lineNo = startLine; lineNo <= endLine; lineNo++) {
-      const line = activeEditor.document.lineAt(lineNo);
-      if (line.isEmptyOrWhitespace) {
-        continue;
-      }
-
-      if (
-        lineNo === startLine &&
-        !line.text.slice(selection.start.character).trim()
-      ) {
-        continue;
-      }
-
-      if (
-        lineNo > startLine &&
-        lineNo === endLine &&
-        selection.end.character < line.firstNonWhitespaceCharacterIndex
-      ) {
-        continue;
-      }
-
-      if (!startPosition) {
-        // find start character index
-        let startCharacter = line.firstNonWhitespaceCharacterIndex;
-
-        if (lineNo === startLine) {
-          startCharacter = Math.max(startCharacter, selection.start.character);
-        }
-
-        startPosition = new Position(lineNo, startCharacter);
-      }
-
-      // find end character index
-      let endCharacter =
-        line.firstNonWhitespaceCharacterIndex + line.text.trim().length;
-
-      if (lineNo === endLine) {
-        endCharacter = Math.min(endCharacter, selection.end.character);
-      }
-
-      endPosition = new Position(lineNo, endCharacter);
-    }
-
-    if (startPosition && endPosition) {
-      return new Selection(startPosition, endPosition);
-    }
+  if (!activeEditor || !selection) {
+    return undefined;
   }
 
-  return undefined;
+  const startLine = selection.start.line;
+  const endLine = selection.end.line;
+
+  let startPosition: Position | undefined = undefined;
+  let endPosition: Position | undefined = undefined;
+
+  for (let lineNo = startLine; lineNo <= endLine; lineNo++) {
+    const line = activeEditor.document.lineAt(lineNo);
+    if (line.isEmptyOrWhitespace) {
+      continue;
+    }
+
+    if (
+      lineNo === startLine &&
+      !line.text.slice(selection.start.character).trim()
+    ) {
+      continue;
+    }
+
+    if (
+      lineNo > startLine &&
+      lineNo === endLine &&
+      selection.end.character < line.firstNonWhitespaceCharacterIndex
+    ) {
+      continue;
+    }
+
+    if (!startPosition) {
+      // find start character index
+      let startCharacter = line.firstNonWhitespaceCharacterIndex;
+
+      if (lineNo === startLine) {
+        startCharacter = Math.max(startCharacter, selection.start.character);
+      }
+
+      startPosition = new Position(lineNo, startCharacter);
+    }
+
+    // find end character index
+    let endCharacter =
+      line.firstNonWhitespaceCharacterIndex + line.text.trim().length;
+
+    if (lineNo === endLine) {
+      endCharacter = Math.min(endCharacter, selection.end.character);
+    }
+
+    endPosition = new Position(lineNo, endCharacter);
+  }
+
+  if (startPosition && endPosition) {
+    return new Selection(startPosition, endPosition);
+  }
 }
 
 function trimSelections(): void {
   let activeEditor = window.activeTextEditor;
-  if (activeEditor && activeEditor.selections) {
-    const selections: Selection[] = [];
-
-    activeEditor.selections.forEach((selection) => {
-      if (
-        selection.start.line === selection.end.line &&
-        selection.start.character === selection.end.character
-      ) {
-        return selections.push(selection);
-      }
-
-      const trimmedSelection = trimSelection(selection);
-      if (trimmedSelection) {
-        selections.push(trimmedSelection);
-      }
-    });
-
-    activeEditor.selections = selections;
+  if (!activeEditor || !activeEditor.selections) {
+    return undefined;
   }
+
+  const selections: Selection[] = activeEditor.selections.map((selection: Selection) => {
+    if (
+      selection.start.line === selection.end.line &&
+      selection.start.character === selection.end.character
+    ) {
+      return selection;
+    }
+
+    const trimmedSelection = trimSelection(selection);
+    return trimmedSelection || selection;
+  });;   
+
+  activeEditor.selections = selections;
 }
 
 function applyQuickPick(item: QuickPickItem, surroundItems: ISurroundItem[]) {
   const activeEditor = window.activeTextEditor;
 
-  if (activeEditor && item) {
-    const surroundItem = surroundItems.find((s) => item.label === s.label);
-    if (surroundItem) {
-      try {
-        trimSelections();
-        activeEditor.insertSnippet(new SnippetString(surroundItem.snippet));
-      } catch (err) {
-        window.showErrorMessage(
-          "Could not apply surround snippet: " + surroundItem.label,
-          String(err)
-        );
-      }
-    }
+  if (!activeEditor || !item) { return undefined; }
+  
+  const surroundItem = surroundItems.find((s) => item.label === s.label);
+  if (!surroundItem) { return undefined; }
+  
+  try {
+    trimSelections();
+    activeEditor.insertSnippet(new SnippetString(surroundItem.snippet));
+  } catch (err) {
+    window.showErrorMessage(
+      "Could not apply surround snippet: " + surroundItem.label,
+      String(err)
+    );
   }
 }
 
@@ -280,16 +271,20 @@ async function showMessage(version: string, previousVersion?: string) {
   const result = await window.showInformationMessage(message, ...actions);
 
   if (result !== null) {
-    if (result === whatsNew) {
-      await env.openExternal(
-        Uri.parse("https://github.com/yatki/vscode-surround/releases")
-      );
-    } else if (result === giveAStar) {
-      await env.openExternal(
-        Uri.parse("https://github.com/yatki/vscode-surround")
-      );
-    } else if (result === sponsor) {
-      await env.openExternal(Uri.parse("https://github.com/sponsors/yatki"));
+    switch (result) {
+      case whatsNew:
+        await env.openExternal(
+          Uri.parse("https://github.com/yatki/vscode-surround/releases")
+        );
+        break;
+      case giveAStar:
+        await env.openExternal(
+          Uri.parse("https://github.com/yatki/vscode-surround")
+        );
+        break;
+      case sponsor:
+        await env.openExternal(Uri.parse("https://github.com/sponsors/yatki"));
+        break;
     }
   }
 }
