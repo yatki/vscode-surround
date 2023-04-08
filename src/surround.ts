@@ -94,62 +94,62 @@ function getEnabledSurroundItems(surroundConfig: ISurroundConfig) {
 
 function trimSelection(selection: Selection): Selection | undefined {
   let activeEditor = window.activeTextEditor;
-  if (activeEditor && selection) {
-    const startLine = selection.start.line;
-    const endLine = selection.end.line;
+  if (!activeEditor || !selection) {
+    return undefined;
+  }
+  
+  const startLine = selection.start.line;
+  const endLine = selection.end.line;
 
-    let startPosition: Position | undefined = undefined;
-    let endPosition: Position | undefined = undefined;
+  let startPosition: Position | undefined = undefined;
+  let endPosition: Position | undefined = undefined;
 
-    for (let lineNo = startLine; lineNo <= endLine; lineNo++) {
-      const line = activeEditor.document.lineAt(lineNo);
-      if (line.isEmptyOrWhitespace) {
-        continue;
-      }
-
-      if (
-        lineNo === startLine &&
-        !line.text.slice(selection.start.character).trim()
-      ) {
-        continue;
-      }
-
-      if (
-        lineNo > startLine &&
-        lineNo === endLine &&
-        selection.end.character < line.firstNonWhitespaceCharacterIndex
-      ) {
-        continue;
-      }
-
-      if (!startPosition) {
-        // find start character index
-        let startCharacter = line.firstNonWhitespaceCharacterIndex;
-
-        if (lineNo === startLine) {
-          startCharacter = Math.max(startCharacter, selection.start.character);
-        }
-
-        startPosition = new Position(lineNo, startCharacter);
-      }
-
-      // find end character index
-      let endCharacter =
-        line.firstNonWhitespaceCharacterIndex + line.text.trim().length;
-
-      if (lineNo === endLine) {
-        endCharacter = Math.min(endCharacter, selection.end.character);
-      }
-
-      endPosition = new Position(lineNo, endCharacter);
+  for (let lineNo = startLine; lineNo <= endLine; lineNo++) {
+    const line = activeEditor.document.lineAt(lineNo);
+    if (line.isEmptyOrWhitespace) {
+      continue;
     }
 
-    if (startPosition && endPosition) {
-      return new Selection(startPosition, endPosition);
+    if (
+      lineNo === startLine &&
+      !line.text.slice(selection.start.character).trim()
+    ) {
+      continue;
     }
+
+    if (
+      lineNo > startLine &&
+      lineNo === endLine &&
+      selection.end.character < line.firstNonWhitespaceCharacterIndex
+    ) {
+      continue;
+    }
+
+    if (!startPosition) {
+      // find start character index
+      let startCharacter = line.firstNonWhitespaceCharacterIndex;
+
+      if (lineNo === startLine) {
+        startCharacter = Math.max(startCharacter, selection.start.character);
+      }
+
+      startPosition = new Position(lineNo, startCharacter);
+    }
+
+    // find end character index
+    let endCharacter =
+      line.firstNonWhitespaceCharacterIndex + line.text.trim().length;
+
+    if (lineNo === endLine) {
+      endCharacter = Math.min(endCharacter, selection.end.character);
+    }
+
+    endPosition = new Position(lineNo, endCharacter);
   }
 
-  return undefined;
+  if (startPosition && endPosition) {
+    return new Selection(startPosition, endPosition);
+  }
 }
 
 function trimSelections(): void {
