@@ -81,15 +81,8 @@ function getSurroundConfig(): ISurroundConfig {
   return { ...items, ...custom };
 }
 
-function getEnabledSurroundItems(surroundConfig: ISurroundConfig) {
-  const items: ISurroundItem[] = [];
-  Object.keys(surroundConfig).forEach((surroundItemKey) => {
-    const surroundItem: ISurroundItem = surroundConfig[surroundItemKey];
-    if (!surroundItem.disabled) {
-      items.push(surroundItem);
-    }
-  });
-  return items;
+function getEnabledSurroundItems(surroundConfig: ISurroundConfig) : ISurroundItem[] {
+  return Object.values(surroundConfig).filter((surroundItem: ISurroundItem) => !surroundItem.disabled);
 }
 
 function trimSelection(selection: Selection): Selection | undefined {
@@ -157,7 +150,7 @@ function trimSelections(): void {
   if (!activeEditor || !activeEditor.selections) {
     return undefined;
   }
-  
+
   const selections: Selection[] = activeEditor.selections.map((selection: Selection) => {
     if (
       selection.start.line === selection.end.line &&
