@@ -169,10 +169,10 @@ function trimSelections(): void {
 function applyQuickPick(item: QuickPickItem, surroundItems: ISurroundItem[]) {
   const activeEditor = window.activeTextEditor;
 
-  if (!activeEditor || !item) { return undefined }
+  if (!activeEditor || !item) { return undefined; }
   
   const surroundItem = surroundItems.find((s) => item.label === s.label);
-  if (!surroundItem) { return undefined }
+  if (!surroundItem) { return undefined; }
   
   try {
     trimSelections();
