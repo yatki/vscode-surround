@@ -154,21 +154,23 @@ function trimSelection(selection: Selection): Selection | undefined {
 
 function trimSelections(): void {
   let activeEditor = window.activeTextEditor;
-  if (activeEditor && activeEditor.selections) {
-    const selections: Selection[] = activeEditor.selections.map((selection: Selection) => {
-      if (
-        selection.start.line === selection.end.line &&
-        selection.start.character === selection.end.character
-      ) {
-        return selection;
-      }
-
-      const trimmedSelection = trimSelection(selection);
-      return trimmedSelection || selection;
-    });;   
-
-    activeEditor.selections = selections;
+  if (!activeEditor || !activeEditor.selections) {
+    return undefined;
   }
+  
+  const selections: Selection[] = activeEditor.selections.map((selection: Selection) => {
+    if (
+      selection.start.line === selection.end.line &&
+      selection.start.character === selection.end.character
+    ) {
+      return selection;
+    }
+
+    const trimmedSelection = trimSelection(selection);
+    return trimmedSelection || selection;
+  });;   
+
+  activeEditor.selections = selections;
 }
 
 function applyQuickPick(item: QuickPickItem, surroundItems: ISurroundItem[]) {
