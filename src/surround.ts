@@ -271,16 +271,20 @@ async function showMessage(version: string, previousVersion?: string) {
   const result = await window.showInformationMessage(message, ...actions);
 
   if (result !== null) {
-    if (result === whatsNew) {
-      await env.openExternal(
-        Uri.parse("https://github.com/yatki/vscode-surround/releases")
-      );
-    } else if (result === giveAStar) {
-      await env.openExternal(
-        Uri.parse("https://github.com/yatki/vscode-surround")
-      );
-    } else if (result === sponsor) {
-      await env.openExternal(Uri.parse("https://github.com/sponsors/yatki"));
+    switch (result) {
+      case whatsNew:
+        await env.openExternal(
+          Uri.parse("https://github.com/yatki/vscode-surround/releases")
+        );
+        break;
+      case giveAStar:
+        await env.openExternal(
+          Uri.parse("https://github.com/yatki/vscode-surround")
+        );
+        break;
+      case sponsor:
+        await env.openExternal(Uri.parse("https://github.com/sponsors/yatki"));
+        break;
     }
   }
 }
