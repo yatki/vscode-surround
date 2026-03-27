@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Surround Config",
+  "description": "Configuration file for VS Code Surround extension snippets",
+  "type": "object",
+  "required": ["items"],
+  "additionalProperties": false,
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "Array of snippet groups or standalone snippets",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/definitions/snippetGroup" },
+          { "$ref": "#/definitions/standaloneSnippet" }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "snippetGroup": {
+      "type": "object",
+      "description": "A group of snippets scoped to specific languages",
+      "required": ["snippets"],
+      "additionalProperties": false,
+      "properties": {
+        "languages": {
+          "type": "array",
+          "description": "Language IDs this group applies to. Omit for all languages.",
+          "items": { "type": "string" },
+          "examples": [["javascript", "typescript"], ["html", "markdown"]]
+        },
+        "snippets": {
+          "type": "array",
+          "description": "Snippets in this group",
+          "items": { "$ref": "#/definitions/groupSnippet" }
+        }
+      }
+    },
+    "groupSnippet": {
+      "type": "object",
+      "description": "A snippet within a group (inherits languages from the group)",
+      "required": ["label", "snippet"],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Display name shown in the quick pick menu"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description shown next to the label"
+        },
+        "detail": {
+          "type": "string",
+          "description": "Extended detail information"
+        },
+        "snippet": {
+          "type": "string",
+          "description": "VS Code snippet body. Use $TM_SELECTED_TEXT for the selected text."
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Set to true to disable this snippet",
+          "default": false
+        },
+        "commandName": {
+          "type": "string",
+          "description": "Registers command 'surround.with.<commandName>' for keybinding support"
+        }
+      }
+    },
+    "standaloneSnippet": {
+      "type": "object",
+      "description": "A standalone snippet with optional language filtering",
+      "required": ["label", "snippet"],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Display name shown in the quick pick menu"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description shown next to the label"
+        },
+        "detail": {
+          "type": "string",
+          "description": "Extended detail information"
+        },
+        "snippet": {
+          "type": "string",
+          "description": "VS Code snippet body. Use $TM_SELECTED_TEXT for the selected text."
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Set to true to disable this snippet",
+          "default": false
+        },
+        "languageIds": {
+          "type": "array",
+          "description": "Language IDs this snippet applies to. Supports '*' for all and '-lang' for exclusion.",
+          "items": { "type": "string" },
+          "examples": [["javascript", "typescript"], ["*", "-html"]]
+        },
+        "commandName": {
+          "type": "string",
+          "description": "Registers command 'surround.with.<commandName>' for keybinding support"
+        }
+      }
+    }
+  }
+}

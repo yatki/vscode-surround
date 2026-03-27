@@ -12,19 +12,11 @@ import {
   Selection,
   Position,
 } from "vscode";
-
-interface ISurroundItem {
-  label: string;
-  description?: string;
-  detail?: string;
-  snippet: string;
-  disabled?: boolean;
-  languageIds?: string;
-}
-
-interface ISurroundConfig {
-  [key: string]: ISurroundItem;
-}
+import { IResolvedSnippet, ISurroundConfig } from "./config/types";
+import { loadAllSnippets, getGlobalConfigDirUri, getProjectConfigDirUri, hasLegacyCustomConfig } from "./config/loader";
+import { createConfigWatchers } from "./config/watcher";
+import { exportSettingsToFile } from "./config/exportSettings";
+import { showWhatsNewPage } from "./whatsNew";
 
 function getLanguageId(): string | undefined {
   let editor = window.activeTextEditor;
@@ -34,7 +26,7 @@ function getLanguageId(): string | undefined {
   return editor.document.languageId;
 }
 
-function filterSurroundItems(items: ISurroundItem[], languageId?: string) {
+function filterSurroundItems(items: IResolvedSnippet[], languageId?: string) {
   if (languageId === undefined) {
     return items;
   }
@@ -58,31 +50,8 @@ function filterSurroundItems(items: ISurroundItem[], languageId?: string) {
   });
 }
 
-function getSurroundConfig(): ISurroundConfig {
-  let config = workspace.getConfiguration("surround");
-  const showOnlyUserDefinedSnippets = config.get(
-    "showOnlyUserDefinedSnippets",
-    false
-  );
-  const items = showOnlyUserDefinedSnippets
-    ? {}
-    : <ISurroundConfig>config.get("with", {});
-  const custom = <ISurroundConfig>config.get("custom", {});
-
-  for (const key of Object.keys(custom)) {
-    if (typeof custom[key] !== "object" || !custom[key].label) {
-      window.showErrorMessage(
-        `Invalid custom config for Surround: surround.custom.${key}!\nPlease check your settings!`
-      );
-      return { ...items };
-    }
-  }
-
-  return { ...items, ...custom };
-}
-
-function getEnabledSurroundItems(surroundConfig: ISurroundConfig): ISurroundItem[] {
-  return Object.values(surroundConfig).filter((surroundItem) => !surroundItem.disabled);
+function getEnabledSurroundItems(surroundConfig: ISurroundConfig): IResolvedSnippet[] {
+  return Object.values(surroundConfig).filter((item) => !item.disabled);
 }
 
 function trimSelection(selection: Selection): Selection | undefined {
@@ -116,7 +85,6 @@ function trimSelection(selection: Selection): Selection | undefined {
       }
 
       if (!startPosition) {
-        // find start character index
         let startCharacter = line.firstNonWhitespaceCharacterIndex;
 
         if (lineNo === startLine) {
@@ -126,7 +94,6 @@ function trimSelection(selection: Selection): Selection | undefined {
         startPosition = new Position(lineNo, startCharacter);
       }
 
-      // find end character index
       let endCharacter =
         line.firstNonWhitespaceCharacterIndex + line.text.trim().length;
 
@@ -150,7 +117,7 @@ function trimSelections(): void {
   if (!activeEditor || !activeEditor.selections) {
     return;
   }
-  
+
   const selections: Selection[] = activeEditor.selections.map((selection) => {
     const { start, end } = selection;
 
@@ -160,21 +127,19 @@ function trimSelections(): void {
 
     const trimmedSelection = trimSelection(selection);
     return trimmedSelection || selection;
-  });;
-
-  
+  });
 
   activeEditor.selections = selections;
 }
 
-function applyQuickPick(item: QuickPickItem, surroundItems: ISurroundItem[]) {
+function applyQuickPick(item: QuickPickItem, surroundItems: IResolvedSnippet[]) {
   const activeEditor = window.activeTextEditor;
 
   if (!activeEditor || !item) { return; }
 
   const surroundItem = surroundItems.find((s) => item.label === s.label);
   if (!surroundItem) { return; }
-  
+
   try {
     trimSelections();
     activeEditor.insertSnippet(new SnippetString(surroundItem.snippet));
@@ -186,9 +151,9 @@ function applyQuickPick(item: QuickPickItem, surroundItems: ISurroundItem[]) {
   }
 }
 
-function applySurroundItem(key: string, surroundConfig: ISurroundConfig) {
-  if (window.activeTextEditor && surroundConfig[key]) {
-    const surroundItem: ISurroundItem = surroundConfig[key];
+function applySurroundItem(label: string, surroundConfig: ISurroundConfig) {
+  if (window.activeTextEditor && surroundConfig[label]) {
+    const surroundItem = surroundConfig[label];
     window.activeTextEditor.insertSnippet(
       new SnippetString(surroundItem.snippet)
     );
@@ -200,16 +165,20 @@ async function registerCommands(
   surroundConfig: ISurroundConfig
 ) {
   const registeredCommands = await commands.getCommands();
-  Object.keys(surroundConfig).forEach((key) => {
-    const commandText = `surround.with.${key}`;
+  for (const snippet of Object.values(surroundConfig)) {
+    const cmdName = snippet.commandName || snippet._key;
+    if (!cmdName) {
+      continue;
+    }
+    const commandText = `surround.with.${cmdName}`;
     if (!registeredCommands.includes(commandText)) {
       context.subscriptions.push(
         commands.registerCommand(commandText, () => {
-          applySurroundItem(key, surroundConfig);
+          applySurroundItem(snippet.label, surroundConfig);
         })
       );
     }
-  });
+  }
 }
 
 const SURROUND_LAST_VERSION_KEY = "yatki.vscode-surround:last-version";
@@ -224,9 +193,11 @@ async function showWelcomeOrWhatsNew(
     if (window.state.focused) {
       void context.globalState.update(PENDING_FOCUS, undefined);
       void context.globalState.update(SURROUND_LAST_VERSION_KEY, version);
-      void showMessage(version, previousVersion);
+      if (previousVersion) {
+        showWhatsNewPage(context);
+      }
+      void showMessage(context, version, previousVersion);
     } else {
-      // Save pending on window getting focus
       await context.globalState.update(PENDING_FOCUS, true);
       const disposable = window.onDidChangeWindowState((e) => {
         if (!e.focused) {
@@ -235,11 +206,13 @@ async function showWelcomeOrWhatsNew(
 
         disposable.dispose();
 
-        // If the window is now focused and we are pending the welcome, clear the pending state and show the welcome
         if (context.globalState.get(PENDING_FOCUS) === true) {
           void context.globalState.update(PENDING_FOCUS, undefined);
           void context.globalState.update(SURROUND_LAST_VERSION_KEY, version);
-          void showMessage(version, previousVersion);
+          if (previousVersion) {
+            showWhatsNewPage(context);
+          }
+          void showMessage(context, version, previousVersion);
         }
       });
       context.subscriptions.push(disposable);
@@ -247,7 +220,11 @@ async function showWelcomeOrWhatsNew(
   }
 }
 
-async function showMessage(version: string, previousVersion?: string) {
+async function showMessage(
+  context: ExtensionContext,
+  version: string,
+  previousVersion?: string
+) {
   const whatsNew = { title: "What's New" };
   const giveAStar = { title: "★ Give a star" };
   const sponsor = { title: "❤ Sponsor" };
@@ -272,7 +249,7 @@ async function showMessage(version: string, previousVersion?: string) {
 
   switch (result) {
     case whatsNew:
-      await env.openExternal(Uri.parse("https://github.com/yatki/vscode-surround/releases"));
+      showWhatsNewPage(context);
       break;
     case giveAStar:
       await env.openExternal(Uri.parse("https://github.com/yatki/vscode-surround"));
@@ -285,10 +262,42 @@ async function showMessage(version: string, previousVersion?: string) {
   }
 }
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const MIGRATION_DISMISSED_KEY = "yatki.vscode-surround:migration-dismissed";
+
+async function showMigrationToast(context: ExtensionContext): Promise<void> {
+  if (!hasLegacyCustomConfig()) {
+    return;
+  }
+
+  const dismissed = context.globalState.get<boolean>(MIGRATION_DISMISSED_KEY);
+  if (dismissed) {
+    return;
+  }
+
+  const showSettings: MessageItem = { title: "Show Settings" };
+  const preferFiles: MessageItem = { title: "Prefer Config Files" };
+
+  const result = await window.showInformationMessage(
+    "Surround: \"surround.custom\" is deprecated. Your snippets still work, but consider migrating to \"surround.items\" or config files.",
+    showSettings,
+    preferFiles
+  );
+
+  if (result === showSettings) {
+    await commands.executeCommand(
+      "workbench.action.openSettings",
+      "surround.items"
+    );
+  } else if (result === preferFiles) {
+    await commands.executeCommand("surround.exportSettings");
+  }
+
+  // Dismiss after any interaction (including closing the toast)
+  await context.globalState.update(MIGRATION_DISMISSED_KEY, true);
+}
+
 export function activate(context: ExtensionContext) {
-  let surroundItems: ISurroundItem[] = [];
+  let surroundItems: IResolvedSnippet[] = [];
   let showRecentlyUsedFirst = true;
   let surroundConfig: ISurroundConfig;
 
@@ -298,23 +307,49 @@ export function activate(context: ExtensionContext) {
   const surroundExt = extensions.getExtension("yatki.vscode-surround")!;
   const surroundVersion = surroundExt.packageJSON.version;
 
-  function update() {
-    surroundConfig = getSurroundConfig();
+  async function update() {
+    surroundConfig = await loadAllSnippets();
 
     showRecentlyUsedFirst = !!workspace
       .getConfiguration("surround")
       .get("showRecentlyUsedFirst");
     surroundItems = getEnabledSurroundItems(surroundConfig);
 
-    registerCommands(context, surroundConfig);
+    await registerCommands(context, surroundConfig);
   }
 
-  workspace.onDidChangeConfiguration(() => {
-    update();
-  });
+  // Watch for settings.json changes (behavior settings + snippet definitions)
+  context.subscriptions.push(
+    workspace.onDidChangeConfiguration(() => {
+      void update();
+    })
+  );
 
-  update();
+  // Watch for config file changes
+  const globalDirUri = getGlobalConfigDirUri();
+  const projectDirUri = getProjectConfigDirUri();
+  const watchers = createConfigWatchers(globalDirUri, projectDirUri, () => {
+    void update();
+  });
+  for (const watcher of watchers) {
+    context.subscriptions.push(watcher);
+  }
+
+  // Register export settings command
+  context.subscriptions.push(
+    commands.registerCommand("surround.exportSettings", exportSettingsToFile)
+  );
+
+  // Register What's New command
+  context.subscriptions.push(
+    commands.registerCommand("surround.whatsNew", () => {
+      showWhatsNewPage(context);
+    })
+  );
+
+  void update();
   void showWelcomeOrWhatsNew(context, surroundVersion, previousVersion);
+  void showMigrationToast(context);
 
   let disposable = commands.registerCommand("surround.with", async () => {
     let quickPickItems = filterSurroundItems(
@@ -351,5 +386,4 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(disposable);
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() {}
